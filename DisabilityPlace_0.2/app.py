@@ -955,6 +955,113 @@ def get_facility_category():
                     "rocker_6" : [  0, 139,   0,   0,   5,   0],
                     "rocker_6_n" : ['여가생활', '대표시설', '사설 교육시설', '교통', '화장실', '종교시설'],
 
+
+                    'big_6': [648, 1355, 3471, 3486, 7249, 17929],
+                    'big_6_n': ["교통", "종교시설", "화장실", "사설 교육시설", "여가생활", "대표시설"],
+
+                    'people' : ['강남구',
+ '강동구',
+ '강북구',
+ '강서구',
+ '관악구',
+ '광진구',
+ '구로구',
+ '금천구',
+ '노원구',
+ '도봉구',
+ '동대문구',
+ '동작구',
+ '마포구',
+ '서대문구',
+ '서초구',
+ '성동구',
+ '성북구',
+ '송파구',
+ '양천구',
+ '영등포구',
+ '용산구',
+ '은평구',
+ '종로구',
+ '중구',
+ '중랑구'],
+                    'people_r' : [15617,
+ 17413,
+ 17377,
+ 28717,
+ 20103,
+ 12514,
+ 17289,
+ 11059,
+ 27436,
+ 15196,
+ 15893,
+ 14590,
+ 13250,
+ 12644,
+ 10774,
+ 11770,
+ 17529,
+ 19790,
+ 17232,
+ 14351,
+ 8116,
+ 21301,
+ 6064,
+ 5694,
+ 20034],
+                    'Gu_place' : ['강남구',
+  '강동구',
+  '강북구',
+  '강서구',
+  '관악구',
+  '광진구',
+  '구로구',
+  '금천구',
+  '노원구',
+  '도봉구',
+  '동대문구',
+  '동작구',
+  '마포구',
+  '서대문구',
+  '서초구',
+  '성동구',
+  '성북구',
+  '송파구',
+  '양천구',
+  '영등포구',
+  '용산구',
+  '은평구',
+  '종로구',
+  '중구',
+  '중랑구'],
+                    'Gu_r' : [631,
+  461,
+  213,
+  582,
+  368,
+  209,
+  238,
+  309,
+  399,
+  309,
+  183,
+  247,
+  237,
+  244,
+  414,
+  222,
+  396,
+  624,
+  239,
+  323,
+  208,
+  476,
+  286,
+  235,
+  271],
+
+
+
                     })
 
 @app.route('/eda')
@@ -972,19 +1079,30 @@ def eda2():
 def eda3():
     return render_template('dashboard-after-facility-map.html')
 
+
+
+@app.route('/eda4')
+def ed4():
+    return render_template('dashoboard-total_big_6.html')
+
+
 @app.route('/icon')
 def icon():
     return render_template('pages-icons.html')
 
+
+
 @app.route('/toilet')
 def toilet():
     return render_template('toilet.html')
+
 @app.route('/ev')
 def ev():
     return render_template('ev.html')
 @app.route('/in')
 def ins():
     return render_template('in.html')
+
 @app.route('/no_heigh')
 def no_heigh():
     return render_template('no_heigh.html')

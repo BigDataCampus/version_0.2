@@ -3,7 +3,7 @@
 
 <!-- Basic Page Needs
 ================================================== -->
-<title>Listeo</title>
+<title>Fresh</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -11,8 +11,14 @@
 ================================================== -->
 <link rel="stylesheet" href="/static/FF252/style24.css">
 <link rel="stylesheet" href="/static/FF252/main.css" id="colors">
+<style>
+    #show_nav1{
+        display: none;
+    }
 
-    {% block css %}
+</style>
+
+{% block css %}
 {% endblock %}
 
 
@@ -38,137 +44,17 @@
                         <a href="/" class="dashboard-logo"><img src="/static/images/logo1.png" alt=""></a>
                     </div>
 
-                    <!-- Mobile Navigation -->
-                    <div class="mmenu-trigger">
-                        <button class="hamburger hamburger--collapse" type="button">
-                            <span class="hamburger-box">
-                                <span class="hamburger-inner"></span>
-                            </span>
-                        </button>
-                    </div>
-
                     <!-- Main Navigation -->
                     <nav id="navigation" class="style-1">
                         <ul id="responsive">
-
-                            <li><a href="/a">Home</a>
-{#                                <ul>#}
-{#                                    <li><a href="index.html">Home 1</a></li>#}
-{#                                    <li><a href="index-2.html">Home 2</a></li>#}
-{#                                    <li><a href="index-3.html">Home 3</a></li>#}
-{#                                    <li><a href="index-4.html">Home 4</a></li>#}
-{#                                </ul>#}
-                            </li>
-
+                            <li><a href="/">Home</a></li>
                             <li><a href="/eda">analysis</a>
-{#                                <ul>#}
-{#                                    <li><a href="#">List Layout</a>#}
-{#                                        <ul>#}
-{#                                            <li><a href="listings-list-with-sidebar.html">With Sidebar</a></li>#}
-{#                                            <li><a href="listings-list-full-width.html">Full Width</a></li>#}
-{#                                            <li><a href="listings-list-full-width-with-map.html">Full Width + Map</a></li>#}
-{#                                        </ul>#}
-{#                                    </li>#}
-{#                                    <li><a href="#">Grid Layout</a>#}
-{#                                        <ul>#}
-{#                                            <li><a href="listings-grid-with-sidebar-1.html">With Sidebar 1</a></li>#}
-{#                                            <li><a href="listings-grid-with-sidebar-2.html">With Sidebar 2</a></li>#}
-{#                                            <li><a href="listings-grid-full-width.html">Full Width</a></li>#}
-{#                                            <li><a href="listings-grid-full-width-with-map.html">Full Width + Map</a></li>#}
-{#                                        </ul>#}
-{#                                    </li>#}
-{#                                    <li><a href="#">Half Screen Map</a>#}
-{#                                        <ul>#}
-{#                                            <li><a href="listings-half-screen-map-list.html">List Layout</a></li>#}
-{#                                            <li><a href="listings-half-screen-map-grid-1.html">Grid Layout 1</a></li>#}
-{#                                            <li><a href="listings-half-screen-map-grid-2.html">Grid Layout 2</a></li>#}
-{#                                        </ul>#}
-{#                                    </li>#}
-{#                                    <li><a href="listings-single-page.html">Single Listing</a></li>#}
-{#                                </ul>#}
-                            </li>
-
-{#                            <li><a class="current" href="#">User Panel</a>#}
-{#                                <ul>#}
-{##}
-{#                                    <li><a href="dashboard-totalfacility.html">totalfacility</a></li>#}
-{#                                    <li><a href="dashboard.html">Dashboard</a></li>#}
-{#                                    <li><a href="dashboard-bookings.html">Bookings</a></li>#}
-{#                                    <li><a href="/eda3#view3">My Listings</a></li>#}
-{#                                    <li><a href="dashboard-reviews.html">Reviews</a></li>#}
-{#                                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>#}
-{#                                    <li><a href="dashboard-add-listing.html">Add Listing</a></li>#}
-{#                                    <li><a href="dashboard-my-profile.html">My Profile</a></li>#}
-{#                                    <li><a href="dashboard-invoice.html">Invoice</a></li>#}
-{#                                </ul>#}
-{#                            </li>#}
-
-{#                            <li><a href="#">Pages</a>#}
-{#                                <div class="mega-menu mobile-styles three-columns">#}
-{##}
-{#                                        <div class="mega-menu-section">#}
-{#                                            <ul>#}
-{#                                                <li class="mega-menu-headline">Pages #1</li>#}
-{#                                                <li><a href="pages-user-profile.html"><i class="sl sl-icon-user"></i> User Profile</a></li>#}
-{#                                                <li><a href="pages-booking.html"><i class="sl sl-icon-check"></i> Booking Page</a></li>#}
-{#                                                <li><a href="pages-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>#}
-{#                                                <li><a href="pages-blog.html"><i class="sl sl-icon-docs"></i> Blog</a></li>#}
-{#                                            </ul>#}
-{#                                        </div>#}
-{##}
-{#                                        <div class="mega-menu-section">#}
-{#                                            <ul>#}
-{#                                                <li class="mega-menu-headline">Pages #2</li>#}
-{#                                                <li><a href="pages-contact.html"><i class="sl sl-icon-envelope-open"></i> Contact</a></li>#}
-{#                                                <li><a href="pages-coming-soon.html"><i class="sl sl-icon-hourglass"></i> Coming Soon</a></li>#}
-{#                                                <li><a href="pages-404.html"><i class="sl sl-icon-close"></i> 404 Page</a></li>#}
-{#                                                <li><a href="pages-masonry-filtering.html"><i class="sl sl-icon-equalizer"></i> Masonry Filtering</a></li>#}
-{#                                            </ul>#}
-{#                                        </div>#}
-{##}
-{#                                        <div class="mega-menu-section">#}
-{#                                            <ul>#}
-{#                                                <li class="mega-menu-headline">Other</li>#}
-{#                                                <li><a href="pages-elements.html"><i class="sl sl-icon-settings"></i> Elements</a></li>#}
-{#                                                <li><a href="pages-pricing-tables.html"><i class="sl sl-icon-tag"></i> Pricing Tables</a></li>#}
-{#                                                <li><a href="pages-typography.html"><i class="sl sl-icon-pencil"></i> Typography</a></li>#}
-{#                                                <li><a href="pages-icons.html"><i class="sl sl-icon-diamond"></i> Icons</a></li>#}
-{#                                            </ul>#}
-{#                                        </div>#}
-{##}
-{#                                </div>#}
-{#                            </li>#}
-
                         </ul>
                     </nav>
                     <div class="clearfix"></div>
                     <!-- Main Navigation / End -->
-
-                </div>
+                 </div>
                 <!-- Left Side Content / End -->
-
-{#                <!-- Right Side Content / End -->#}
-{#                <div class="right-side">#}
-{#                    <!-- Header Widget -->#}
-{#                    <div class="header-widget">#}
-{##}
-{#                        <!-- User Menu -->#}
-{#                        <div class="user-menu">#}
-{#                            <div class="user-name"><span><img src="/static/images/dashboard-avatar.jpg" alt=""></span>Hi, Tom!</div>#}
-{#                            <ul>#}
-{#                                <li><a href="dashboard.html"><i class="sl sl-icon-settings"></i> Dashboard</a></li>#}
-{#                                <li><a href="dashboard-totalfacility.html"><i class="sl sl-icon-envelope-open"></i> Messages</a></li>#}
-{#                                <li><a href="dashboard-bookings.html"><i class="fa fa-calendar-check-o"></i> Bookings</a></li>#}
-{#                                <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>#}
-{#                            </ul>#}
-{#                        </div>#}
-{##}
-{#                        <a href="dashboard-add-listing.html" class="button border with-icon">Add Listing <i class="sl sl-icon-plus"></i></a>#}
-{#                    </div>#}
-{#                    <!-- Header Widget / End -->#}
-{#                </div>#}
-{#                <!-- Right Side Content / End -->#}
-
             </div>
         </div>
         <!-- Header / End -->
@@ -178,64 +64,55 @@
     <!-- Header Container / End -->
 
 
-    <!-- Dashboard -->
-    <div id="dashboard">
+        <!-- Dashboard -->
+        <div id="dashboard">
 
-        <!-- Navigation
-        ================================================== -->
+            <!-- Navigation
+            ================================================== -->
 
-        <!-- Responsive Navigation Trigger -->
-        <a href="#" class="dashboard-responsive-nav-trigger"><i class="fa fa-reorder"></i> Dashboard Navigation</a>
+            <!-- Responsive Navigation Trigger -->
 
-        <div class="dashboard-nav">
-            <div class="dashboard-nav-inner">
 
-                <ul data-submenu-title="Main">
+            <div class="dashboard-nav">
+                <div class="dashboard-nav-inner">
 
-                    <li class="active"><a href="/eda1"><i class="sl sl-icon-envelope-open"></i> total_facility </a></li>
-                    <li><a href="/eda2"><i class="sl sl-icon-settings"></i> facilty_map </a>
 
-                    </li>
-                    <ul data-submenu-title="facility">
-                    <li><a href="#facilitylisten"><i class="fa fa-calendar-check-o"></i>facilty</a>
-                    <ul id="facilitylisten">
-                            <li><a href="/in">주출입구 접근로</a></li>
-                            <li><a href="/no_heigh">주출입구 높이차이 제거</a></li>
-                            <li><a href="/parking">장애인 전용 주차구역</a></li>
-                            <li><a href="/ev">장애인용 승강기</a></li>
-                            <li><a href="/toilet">장애인용 화장실</a></li>
-                            <li><a href="/auto_door">자동 출입구(문)</a></li>
-                            <li><a href="/waring">경보 및 피난설비</a></li>
-                            <li><a href="/bed">객실 및 침실</a></li>
-                            <li><a href="/dotblock">점자블록</a></li>
-                            <li><a href="/view">장애인용 관람석</a></li>
-                            <li><a href="/wash">세면대</a></li>
-                            <li><a href="/dask">접수대 및 작업대</a></li>
-                            <li><a href="/auto_dask">자동 판매기</a></li>
-                            <li><a href="/eatingwater">음료대</a></li>
-                            <li><a href="/bath">욕실</a></li>
-                            <li><a href="/rocker">샤워실 및 탈의실</a></li>
-                        </ul>
-                    </li>
+                     <div id="mainss">
 
-                 </ul>
+                    <ul data-submenu-title="Main">
+                        <li class="active"><a href="/eda"><i class="sl sl-icon-envelope-open"></i> total_facility </a></li>
+                        <li><a href="/eda2"><i class="sl sl-icon-settings"></i> facilty_map </a></li>
+                        <li><a id="show1"><i class="sl sl-icon-settings"></i> facilty_map </a></li>
+                        <li><a href="/eda4"><i class="sl sl-icon-settings"></i> big_6 </a></li>
+                     </ul>
+                     </div>
 
-                </ul>
+                    <div id ="show_nav1">
+                    <ul data-submenu-title="Facility">
+                        <li><a id="Back"><i class="fa fa-calendar-check-o"></i>Back</a></li>
+                        <li><a href="/in">주출입구 접근로</a></li>
+                        <li><a href="/no_heigh">주출입구 높이차이 제거</a></li>
+                        <li><a href="/parking">장애인 전용 주차구역</a></li>
+                        <li><a href="/ev">장애인용 승강기</a></li>
+                        <li><a href="/toilet">장애인용 화장실</a></li>
+                        <li><a href="/auto_door">자동 출입구(문)</a></li>
+                        <li><a href="/waring">경보 및 피난설비</a></li>
+                        <li><a href="/bed">객실 및 침실</a></li>
+                        <li><a href="/dotblock">점자블록</a></li>
+                        <li><a href="/view">장애인용 관람석</a></li>
+                        <li><a href="/wash">세면대</a></li>
+                        <li><a href="/dask">접수대 및 작업대</a></li>
+                        <li><a href="/auto_dask">자동 판매기</a></li>
+                        <li><a href="/eatingwater">음료대</a></li>
+                        <li><a href="/bath">욕실</a></li>
+                        <li><a href="/rocker">샤워실 및 탈의실</a></li>
+                     </ul>
+                    </div>
+                </div>
 
-{#                <ul data-submenu-title="Listings">#}
-{##}
-{#                    <li><a href="dashboard-reviews.html"><i class="sl sl-icon-star"></i> Reviews</a></li>#}
-{#                    <li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> Bookmarks</a></li>#}
-{#                    <li><a href="dashboard-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>#}
-{#                </ul>#}
-{##}
-{#                <ul data-submenu-title="Account">#}
-{#                    <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>#}
-{#                    <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>#}
-{#                </ul>#}
+            </div>
 
-        </div>
-        </div>
+
         <!-- Navigation / End -->
 
 
@@ -245,13 +122,13 @@
         {% endblock %}
 
         <!-- Content / End -->
-
+        </div>
 
     </div>
     <!-- Dashboard / End -->
 
 
-    </div>
+
     <!-- Wrapper / End -->
 
 
@@ -266,9 +143,35 @@
 
 <!-- Scripts
 ================================================== -->
+
+
+
 {% include 'basescript.html' %}
 {% block script %}
 {% endblock %}
+<script>
 
+
+
+    {#$(document).ready(function(){#}
+    {#$("#show1").click(function() {#}
+    {#      $( "#mainss" ).fadeOut(1000);#}
+    {#      $( "#show_nav1" ).fadeIn( 1000 );#}
+    {##}
+
+    $(document).ready(function(){
+        $("#show1").click(function(){
+            $("#show_nav1").slideDown("slow");
+        });
+    });
+
+    $(document).ready(function(){
+    $("#Back").click(function(){
+        $("#show_nav1").slideUp("slow");
+    });
+});
+
+
+</script>
 
 </body>

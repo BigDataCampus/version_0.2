@@ -4,8 +4,8 @@
     <style>
     body {
     overflow-x:hidden;
-
-}
+    {#overflow-y:hidden;#}
+    }
         svg text {
             pointer-events: none;
         }
@@ -107,34 +107,32 @@
     <div class="dashboard-content">
 
 
- {#no_heigh 주출입구 높이차이 제거#}
-
-
+        {#주출입구 접근로#}
         <!-- Titlebar -->
-        <div id="titlebar">
-            <div class="row">
-                <div id="view"></div>
-                <a id ="view13"><h2>주출입구 높이차이 제거</h2></a>
+      <div class="row">
+                <a id="view2"><h2>카테고리 분석</h2></a>
             </div>
+
+
 
             <!-- Listings -->
-            <div class="col-lg-6 col-md-12">
-                <div class="dashboard-list-box margin-top-0">
-                    <h4><span class="im im-icon-Edit-Map"></span>  Geo Map</h4>
-                    <img src = "static/images/facility_map/no_heigh.png"/>
-                </div>
-            </div>
-
-             <!-- Listings -->
-            <div class="col-lg-6 col-md-12">
-                <div class="dashboard-list-box margin-top-0">
-                    <h4><span class="im im-icon-Bar-Chart5"></span> <span class="im im-icon-Statistic"></span>Bar&Rander Chart</h4>
-                    <canvas id="no_heigh"></canvas>
-                    <canvas id="no_heigh_6"></canvas>
-                </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box margin-top-0">
+                <h4><span class="im im-icon-Bar-Chart5"></span> Bar</h4>
+                <canvas id="big_6"></canvas>
             </div>
         </div>
 
+             <!-- Listings -->
+        <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box margin-top-0">
+                <h4><span class="im im-icon-Statistic"></span> Rander Chart</h4>
+
+                <canvas id="big_6_r"></canvas>
+            </div>
+        </div>
+
+        </div>
 
 
 
@@ -3721,12 +3719,596 @@
 
         });
 
+        {#big_6분포#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("big_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+
+                        data: {
+                            labels: data.big_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.big_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("big_6_r");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+                        labels: data.toilet_6_n,
+                        data: {
+                            datasets: [{
+
+
+                                data: data.toilet_6,
+                                label: "장애인용 화장실",
+
+                                backgroundColor: [
+
+                                    "rgba(241, 174, 005,0.6)",
+                                    "rgba(093, 201, 188,0.6)",
+                                    "rgba(038, 148, 137,0.6)",
+                                    "rgba(198, 058, 068,0.6)",
+                                    "rgba(246, 113, 072,0.6)",
+                                    "rgba(232, 156, 178,0.6)",
+
+
+                                ],
+                                borderColor: [
+                                    "rgba(241, 174, 005,1)",
+                                    "rgba(093, 201, 188,1)",
+                                    "rgba(038, 148, 137,1)",
+                                    "rgba(198, 058, 068,1)",
+                                    "rgba(246, 113, 072,1)",
+                                    "rgba(232, 156, 178,1)",
+
+
+                                ],
+                            }, {
+
+                                data: data.ev_6,
+                                label: "장애인용 승강기",
+
+                                backgroundColor: [
+
+                                    "rgba(241, 174, 005,0.6)",
+                                    "rgba(093, 201, 188,0.6)",
+                                    "rgba(038, 148, 137,0.6)",
+                                    "rgba(198, 058, 068,0.6)",
+                                    "rgba(246, 113, 072,0.6)",
+                                    "rgba(232, 156, 178,0.6)",
+
+
+                                ],
+                                borderColor: [
+                                    "rgba(241, 174, 005,1)",
+                                    "rgba(093, 201, 188,1)",
+                                    "rgba(038, 148, 137,1)",
+                                    "rgba(198, 058, 068,1)",
+                                    "rgba(246, 113, 072,1)",
+                                    "rgba(232, 156, 178,1)",
+
+
+                                ],
+                                {#borderWidth: 1#}
+                            },
+                                {
+
+                                    data: data.in_6,
+                                    label: "주출입구 접근로",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.no_heigh_6,
+                                    label: "주출입구 높이차이 제거",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.view_6,
+                                    label: "장애인용 관람석",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",]
+
+
+                                },
+                                {
+
+                                    data: data.parking_6,
+                                    label: "장애인 전용 주차구역",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+                                    {#borderWidth: 1#}
+                                },
+
+                                {
+
+                                    data: data.auto_door_6,
+                                    label: "자동 출입구(문)",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+                                    data: data.wash_6,
+                                    label: "세면대",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.dotblock_6,
+                                    label: "점자블록",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+                                },
+                                {
+                                    data: data.bed_6,
+                                    label: "객실 및 침실",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.waring_6,
+                                    label: "경보 및 피난설비",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.dask_6,
+                                    label: "접수대 및 작업대",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.eatingwater_6,
+                                    label: "음료대",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.auto_dask_6,
+                                    label: "자동판매기",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+
+                                    data: data.bath_6,
+                                    label: "욕실",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                },
+                                {
+                                    data: data.rocker_6,
+                                    label: "샤워실 및 탈의실",
+
+                                    backgroundColor: [
+
+                                        "rgba(241, 174, 005,0.6)",
+                                        "rgba(093, 201, 188,0.6)",
+                                        "rgba(038, 148, 137,0.6)",
+                                        "rgba(198, 058, 068,0.6)",
+                                        "rgba(246, 113, 072,0.6)",
+                                        "rgba(232, 156, 178,0.6)",
+
+
+                                    ],
+                                    borderColor: [
+                                        "rgba(241, 174, 005,1)",
+                                        "rgba(093, 201, 188,1)",
+                                        "rgba(038, 148, 137,1)",
+                                        "rgba(198, 058, 068,1)",
+                                        "rgba(246, 113, 072,1)",
+                                        "rgba(232, 156, 178,1)",
+
+
+                                    ],
+
+                                }],
+                        },
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
 
 
 
 
 </script>
 
+<script>
+</script>
 {% endblock %}
 
 
