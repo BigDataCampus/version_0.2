@@ -28,111 +28,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="dashoboard-total_big_6.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/dashoboard-total_big_6.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="13">
-              <caret line="96" selection-start-line="96" selection-end-line="97" />
-              <folding>
-                <element signature="e#3422#6959#0#HTML" />
-                <element signature="e#6999#9474#0#HTML" />
-                <element signature="e#9514#14115#0#HTML" />
-                <element signature="e#9535#14102#0#HTML" />
-                <element signature="e#14177#18791#0#HTML" />
-                <element signature="e#18831#23441#0#HTML" />
-                <element signature="e#18852#23428#0#HTML" />
-                <element signature="e#23516#28110#0#HTML" />
-                <element signature="e#28150#32790#0#HTML" />
-                <element signature="e#32864#37492#0#HTML" />
-                <element signature="e#37532#42157#0#HTML" />
-                <element signature="e#42222#46835#0#HTML" />
-                <element signature="e#46875#51485#0#HTML" />
-                <element signature="e#51555#56180#0#HTML" />
-                <element signature="e#56220#60842#0#HTML" />
-                <element signature="e#60915#65549#0#HTML" />
-                <element signature="e#65589#70220#0#HTML" />
-                <element signature="e#70289#74914#0#HTML" />
-                <element signature="e#74954#79576#0#HTML" />
-                <element signature="e#79640#84256#0#HTML" />
-                <element signature="e#84296#88909#0#HTML" />
-                <element signature="e#88976#93607#0#HTML" />
-                <element signature="e#93647#98275#0#HTML" />
-                <element signature="e#98343#102303#0#HTML" />
-                <element signature="e#102343#106959#0#HTML" />
-                <element signature="e#107021#111640#0#HTML" />
-                <element signature="e#111680#116296#0#HTML" />
-                <element signature="e#116363#120982#0#HTML" />
-                <element signature="e#121022#125638#0#HTML" />
-                <element signature="e#125708#130342#0#HTML" />
-                <element signature="e#130382#135013#0#HTML" />
-                <element signature="e#135082#139722#0#HTML" />
-                <element signature="e#139762#144399#0#HTML" />
-                <element signature="e#144460#149079#0#HTML" />
-                <element signature="e#149119#153735#0#HTML" />
-                <element signature="e#153804#158429#0#HTML" />
-                <element signature="e#163160#167785#0#HTML" />
-                <element signature="e#163304#167758#0#HTML" />
-                <element signature="e#163825#165328#0#HTML" />
-                <element signature="e#165376#166820#0#HTML" />
-                <element signature="e#168227#186764#0#HTML" />
-                <element signature="e#168224#169250#0#HTML" />
-                <element signature="e#168487#169990#0#HTML" />
-                <element signature="e#170038#171482#0#HTML" />
-                <element signature="e#169251#170326#0#HTML" />
-                <element signature="e#169779#170203#0#HTML" />
-                <element signature="e#170251#170654#0#HTML" />
-                <element signature="e#170352#171399#0#HTML" />
-                <element signature="e#171093#171517#0#HTML" />
-                <element signature="e#171565#171968#0#HTML" />
-                <element signature="e#171424#172470#0#HTML" />
-                <element signature="e#172496#173491#0#HTML" />
-                <element signature="e#173517#174618#0#HTML" />
-                <element signature="e#175760#176774#0#HTML" />
-                <element signature="e#176798#177827#0#HTML" />
-                <element signature="e#177853#178882#0#HTML" />
-                <element signature="e#178908#179961#0#HTML" />
-                <element signature="e#181063#182099#0#HTML" />
-                <element signature="e#182121#183180#0#HTML" />
-                <element signature="e#183202#184224#0#HTML" />
-                <element signature="e#184247#185250#0#HTML" />
-                <element signature="e#185310#186051#0#HTML" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="edaboard-base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/edaboard-base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
+            <state relative-caret-position="172">
               <caret line="50" column="55" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="55" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base2.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/base2.html">
+      <file leaf-file-name="ev.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/ev.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1703">
-              <caret line="131" column="39" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="39" />
+            <state relative-caret-position="227">
+              <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="listings-single-page.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/listings-single-page.html">
+      <file leaf-file-name="in.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/in.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+            <state relative-caret-position="349">
+              <caret line="121" column="29" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/templates/header.html">
+      <file leaf-file-name="navbar.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/navbar.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
+            <state relative-caret-position="247">
+              <caret line="19" column="47" lean-forward="true" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rocker.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/rocker.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="277">
+              <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="parking.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/parking.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="263">
+              <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="toilet.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/toilet.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="waring.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/waring.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="335">
+              <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/view.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="125" column="33" selection-start-line="125" selection-start-column="33" selection-end-line="125" selection-end-column="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wash.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/templates/wash.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="123" column="33" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -213,27 +194,27 @@
         <option value="$PROJECT_DIR$/static/FF251/style24.css" />
         <option value="$PROJECT_DIR$/templates/listings-single-page.html" />
         <option value="$PROJECT_DIR$/templates/pages-icons.html" />
-        <option value="$PROJECT_DIR$/templates/auto_dask.html" />
-        <option value="$PROJECT_DIR$/templates/auto_door.html" />
-        <option value="$PROJECT_DIR$/templates/bed.html" />
-        <option value="$PROJECT_DIR$/templates/dask.html" />
-        <option value="$PROJECT_DIR$/templates/dotblock.html" />
-        <option value="$PROJECT_DIR$/templates/eatingwater.html" />
-        <option value="$PROJECT_DIR$/templates/ev.html" />
-        <option value="$PROJECT_DIR$/templates/parking.html" />
-        <option value="$PROJECT_DIR$/templates/rocker.html" />
-        <option value="$PROJECT_DIR$/templates/toilet.html" />
-        <option value="$PROJECT_DIR$/templates/view.html" />
-        <option value="$PROJECT_DIR$/templates/waring.html" />
-        <option value="$PROJECT_DIR$/templates/wash.html" />
         <option value="$PROJECT_DIR$/templates/dashboard-after-facility-map.html" />
         <option value="$PROJECT_DIR$/templates/no_heigh.html" />
-        <option value="$PROJECT_DIR$/templates/bath.html" />
-        <option value="$PROJECT_DIR$/templates/in.html" />
         <option value="$PROJECT_DIR$/templates/edaboard-base.html" />
         <option value="$PROJECT_DIR$/app.py" />
         <option value="$PROJECT_DIR$/templates/dashoboard-total_big_6.html" />
         <option value="$PROJECT_DIR$/templates/header.html" />
+        <option value="$PROJECT_DIR$/templates/ev.html" />
+        <option value="$PROJECT_DIR$/templates/auto_dask.html" />
+        <option value="$PROJECT_DIR$/templates/auto_door.html" />
+        <option value="$PROJECT_DIR$/templates/bath.html" />
+        <option value="$PROJECT_DIR$/templates/bed.html" />
+        <option value="$PROJECT_DIR$/templates/dask.html" />
+        <option value="$PROJECT_DIR$/templates/dotblock.html" />
+        <option value="$PROJECT_DIR$/templates/eatingwater.html" />
+        <option value="$PROJECT_DIR$/templates/in.html" />
+        <option value="$PROJECT_DIR$/templates/rocker.html" />
+        <option value="$PROJECT_DIR$/templates/parking.html" />
+        <option value="$PROJECT_DIR$/templates/toilet.html" />
+        <option value="$PROJECT_DIR$/templates/waring.html" />
+        <option value="$PROJECT_DIR$/templates/view.html" />
+        <option value="$PROJECT_DIR$/templates/wash.html" />
       </list>
     </option>
   </component>
@@ -273,6 +254,13 @@
               <item name="DisabilityPlace_0.1" type="462c0819:PsiDirectoryNode" />
               <item name="static" type="462c0819:PsiDirectoryNode" />
               <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="DisabilityPlace_0.1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="DisabilityPlace_0.1" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+              <item name="facility_map" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="DisabilityPlace_0.1" type="b2602c69:ProjectViewProjectNode" />
@@ -394,6 +382,30 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.31342283" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
+      <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="4" side_tool="true" visible="true" weight="0.012080537" />
+      <window_info anchor="right" id="Database" order="5" weight="0.3295302" />
+      <window_info anchor="bottom" id="Terminal" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -407,7 +419,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/FF252/main.css" />
     <entry file="file://$PROJECT_DIR$/static/FF252/style24.css" />
     <entry file="file://$PROJECT_DIR$/templates/header.html">
       <provider selected="true" editor-type-id="text-editor">
@@ -470,13 +481,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/navbar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="19" column="47" lean-forward="true" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/images/logo1.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -493,13 +497,6 @@
     <entry file="file://$PROJECT_DIR$/static/csv/s.csv" />
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_sqlalchemy/__init__.py" />
     <entry file="file://$PROJECT_DIR$/static/geo/seoul_municipalities_geo.json" />
-    <entry file="file://$PROJECT_DIR$/templates/basescript.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/dashboard-facility-after-eda.html" />
     <entry file="file://$PROJECT_DIR$/templates/pages-typography.html">
       <provider selected="true" editor-type-id="text-editor" />
@@ -508,90 +505,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
           <caret line="11" column="50" selection-start-line="11" selection-start-column="50" selection-end-line="11" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dotblock.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="136" column="3" selection-start-line="136" selection-start-column="3" selection-end-line="136" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/bed.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="136" column="10" selection-start-line="136" selection-start-column="10" selection-end-line="136" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/eatingwater.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/auto_door.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="106" column="35" lean-forward="true" selection-start-line="106" selection-start-column="35" selection-end-line="106" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/auto_dask.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="126" column="18" selection-start-line="126" selection-start-column="18" selection-end-line="126" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/parking.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="135" column="8" selection-start-line="135" selection-start-column="8" selection-end-line="135" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/rocker.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="109" column="2" selection-start-line="109" selection-start-column="2" selection-end-line="109" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/toilet.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="135" column="3" selection-start-line="135" selection-start-column="3" selection-end-line="135" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/view.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="139" lean-forward="true" selection-start-line="139" selection-end-line="139" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/waring.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="136" column="8" selection-start-line="136" selection-start-column="8" selection-end-line="136" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/wash.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="553">
-          <caret line="136" lean-forward="true" selection-start-line="136" selection-end-line="136" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/ev.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="136" selection-start-line="136" selection-end-line="136" />
         </state>
       </provider>
     </entry>
@@ -609,38 +522,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard-after-facility-map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="136" column="10" lean-forward="true" selection-start-line="136" selection-start-column="10" selection-end-line="136" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/in.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="19" column="23" lean-forward="true" selection-end-line="3737" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/bath.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="115" column="38" selection-start-line="115" selection-start-column="38" selection-end-line="115" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/no_heigh.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="218">
           <caret line="116" column="48" selection-start-line="116" selection-start-column="48" selection-end-line="116" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dask.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="481">
-          <caret line="137" selection-end-line="3738" selection-end-column="7" />
         </state>
       </provider>
     </entry>
@@ -685,6 +570,23 @@
             <element signature="e#34303#34528#0" />
             <element signature="e#34559#34732#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/listings-single-page.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/images/facility_map/auto_dask.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/header.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
         </state>
       </provider>
     </entry>
@@ -759,10 +661,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/listings-single-page.html">
+    <entry file="file://$PROJECT_DIR$/templates/auto_dask.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        <state relative-caret-position="329">
+          <caret line="124" column="33" selection-start-line="124" selection-start-column="33" selection-end-line="124" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/auto_door.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -773,17 +682,122 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/basescript.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="12" column="26" selection-start-line="12" selection-start-column="26" selection-end-line="12" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bath.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/bed.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dashboard-after-facility-map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="136" column="10" selection-start-line="136" selection-start-column="10" selection-end-line="136" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dask.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="124" column="33" selection-start-line="124" selection-start-column="33" selection-end-line="124" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dotblock.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/eatingwater.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="123" column="33" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/edaboard-base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
+        <state relative-caret-position="172">
           <caret line="50" column="55" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/header.html">
+    <entry file="file://$PROJECT_DIR$/templates/ev.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="28" column="50" selection-start-line="28" selection-start-column="50" selection-end-line="28" selection-end-column="50" />
+        <state relative-caret-position="227">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/in.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="121" column="29" selection-start-line="121" selection-start-column="29" selection-end-line="121" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/navbar.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="19" column="47" lean-forward="true" selection-start-line="19" selection-start-column="47" selection-end-line="19" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/rocker.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/parking.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/toilet.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="121" column="33" selection-start-line="121" selection-start-column="33" selection-end-line="121" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/waring.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="122" column="33" selection-start-line="122" selection-start-column="33" selection-end-line="122" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/view.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="125" column="33" selection-start-line="125" selection-start-column="33" selection-end-line="125" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/wash.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="123" column="33" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
         </state>
       </provider>
     </entry>
