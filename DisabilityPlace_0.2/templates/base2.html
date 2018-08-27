@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>장애인을 위한 편의시설</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/static/FF252/style24.css">
+    <link rel="stylesheet" href="/static/FF252/main.css" id="colors">
+
+
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #floating-panel {
+            position: center;
+            top: 0px;
+            left: 25%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: 'Roboto', 'sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<!-- Wrapper -->
+<div id="wrapper">
+
+    <!-- Header Container
+    ================================================== -->
+    {% include 'header.html' %}
+    {% block content %}
+
+        <!-- Map
+        ================================================== -->
+        <div id="map-container" class="fullwidth-home-map ">
+
+            <div id="map" data-map-zoom="11" dd='{{ places | tojson }}'>
+                <!-- map goes here -->
+            </div>
+            <div id="floating-panel">
+                <input id="address" type="textbox" value="가고싶은 곳 입력하세요">
+                <input id="submit" type="button" value="Geocode">
+            </div>
+
+
+
+
+            <form action='/listing'>
+                <div class="main-search-inner">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="main-search-input">
+
+                                    <div class="main-search-input-item">
+                                        <input type="text" name="content" placeholder="What are you looking for?"
+                                               value=""/>
+                                    </div>
+
+                                    <div class="main-search-input-item location">
+                                        <div id="autocomplete-container">
+                                            <input id="autocomplete-input" type="text" placeholder="Location">
+                                        </div>
+                                        <a href="#"><i class="fa fa-map-marker"></i></a>
+                                    </div>
+
+                                    <div class="main-search-input-item">
+                                        <select data-placeholder="All Categories" class="chosen-select">
+                                            <option>All Categories</option>
+                                            <option>Shops</option>
+                                            <option>Hotels</option>
+                                            <option>Restaurants</option>
+                                            <option>Fitness</option>
+                                            <option>Events</option>
+                                        </select>
+                                    </div>
+
+                                    <input type="submit" class="button" value="Search"></input>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- Scroll Enabling Button -->
+            <a href="#" id="gonnafind" title="찍은데 추천고">장소 주변 추천</a>
+            {#	<a href="#" id="scrollEnabling" title="Enable or disable scrolling on map">Enable Scrolling</a>#}
+            <a href="#" id="geoLocation" title="내위치주변 추천고">내 위치 주변 추천</a>
+            <!-- Checkboxes -->
+            <h1 class="margin-top-30 margin-bottom-10" align="center">편의시설 <span>(필요한 편의시설을 선택하세요)</span>
+            </h1>
+            <div class="checkboxes in-row margin-bottom-20">
+                {% for i in range(16) %}
+                    <input id="check-{{ i }}" type="checkbox" name="check" value="{{ i }}">
+                    <label for="check-{{ i }}">{{ faclist[i] }}</label>
+                {% endfor %}
+            </div>
+            <!-- Checkboxes / End -->
+        </div>
+        <!-- Sidebar
+        ================================================== -->
+        <div class="col-lg-3 col-md-4">
+            <div class="sidebar">
+                <div class="row">
+                    <!-- Listing Item -->
+                    <div class="col-lg-12 col-md-12">
+                        {% for i in range(5) %}
+                            <div id="itemlist-{{ i }}" class="listing-item-container list-layout">
+                                <a href="listings-single-page.html" class="listing-item">
+                                    <!-- Image -->
+                                    <div class="listing-item-image">
+                                        <img src="/static/place/공원.png" alt="공원">
+                                        <span class="tag">추천 장소 카테고리</span>
+                                    </div>
+                                    <!-- Content -->
+                                    <div class="listing-item-content">
+                                        <div class="listing-item-inner">
+                                            <h3>추천 장소</h3>
+                                            <span>추천 장소 주소</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Listing Item / End -->
+                </div>
+            </div>
+        </div>
+        <!-- Sidebar / End -->
+
+
+
+    {% endblock content %}
+
+
+    <!-- Footer
+    ================================================== -->
+
+
+
+    <!-- Back To Top Button -->
+    <div id="backtotop"><a href="#"></a></div>
+
+
+</div>
+<!-- Wrapper / End -->
+
+
+<!-- Scripts
+================================================== -->
+
+<script type="text/javascript" src="/static/scripts/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="/static/scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="/static/scripts/chosen.min.js"></script>
+<script type="text/javascript" src="/static/scripts/slick.min.js"></script>
+<script type="text/javascript" src="/static/scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="/static/scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="/static/scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="/static/scripts/counterup.min.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="/static/scripts/custom.js"></script>
+
+<!-- Google Autocomplete -->
+<script>
+    function initAutocomplete() {
+        var input = document.getElementById('autocomplete-input');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+        });
+
+        if ($('.main-search-input-item')[0]) {
+            setTimeout(function () {
+                $(".pac-container").prependTo("#autocomplete-container");
+            }, 300);
+        }
+    }
+</script>
+
+<!-- Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete&key=AIzaSyDQq5Nm_tQE5-0LMoN0UAU2YTL5CB4HWoE"></script>
+<script type="text/javascript" src="/static/scripts/infobox.min.js"></script>
+<script type="text/javascript" src="/static/scripts/markerclusterer.js"></script>
+<script type="text/javascript" src="/static/FF252/maps.js"></script>
+
+
+</body>
+</html>

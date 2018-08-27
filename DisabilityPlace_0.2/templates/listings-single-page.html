@@ -1,0 +1,45 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+
+<!-- Content
+================================================== -->
+<div class="container">
+	<div class="row sticky-wrapper">
+		<div class="col-lg-8 col-md-8 padding-right-30">
+
+			<!-- Titlebar -->
+			<div id="titlebar" class="listing-titlebar">
+				<div class="listing-titlebar-title">
+					<h2>{{ info[0].place_name }}<span class="listing-tag">{{ info[0].category }}</span></h2>
+					<span>
+						<a href="#listing-location" class="listing-address">
+							<i class="fa fa-map-marker"></i>
+							{{ info[0].place_address }}
+						</a>
+					</span>
+				</div>
+			</div>
+            <!-- Amenities -->
+            <h3 class="listing-desc-headline">Amenities</h3>
+            <ul class="listing-features checkboxes margin-top-0">
+                {% for i in facinfo %}
+                    <li>{{ i.facility_available_name }}</li>
+                {% endfor %}
+            </ul>
+
+        </div>
+        <!-- Location -->
+        <div id="listing-location" class="listing-section sidebar">
+            <h3 class="listing-desc-headline margin-top-60 margin-bottom-30">Location</h3>
+
+            <div id="singleListingMap-container">
+                <div id="singleListingMap" data-latitude={{ info[0].lat }} data-longitude={{ info[0].lng }} data-map-icon="im im-icon-Hamburger"></div>
+                <a href="#" id="streetView">Street View</a>
+            </div>
+        </div>
+	</div>
+</div>
+
+{% endblock %}

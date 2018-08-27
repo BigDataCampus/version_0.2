@@ -1,0 +1,589 @@
+{% extends "edaboard-base.html" %}
+
+{% block css %}
+ <style>
+.dashboard-content{
+    background: white;
+}
+        svg circle:hover {
+          fill: red;
+          stroke: #333;
+        }
+        svg text {
+          pointer-events: none;
+        }
+        svg .municipality {
+          fill: #efefef;
+          stroke: #fff;
+        }
+        svg .municipality-label {
+          fill: #bbb;
+          font-size: 12px;
+          font-weight: 300;
+          text-anchor: middle;
+        }
+        svg #map text {
+          color: #333;
+          font-size: 10px;
+          text-anchor: middle;
+        }
+        svg #places text {
+          color: #777;
+          font: 10px sans-serif;
+          text-anchor: start;
+        }
+        #title {
+            font-family: sans-serif;
+        }
+        #title p {
+            font-size: 10pt;
+        }
+    </style>
+
+{% endblock %}
+
+
+
+{% block content %}
+<div class="dashboard-content">
+
+        <!-- Titlebar -->
+        <div id="titlebar">
+            <div class="row">
+                    <a href ="#view2"><h2>편의시설 분포</h2></a>
+            </div>
+        </div>
+    <div class="center-block">
+            <div id="chart" class="centered-content"></div>
+        </div>
+
+
+                <a id="toilet" class="button medium border"><span class="im im-icon-Bar-Chart5"></span> 장애인용 화장실 </a>
+                <a id="ev" class="button medium border"><span class="im im-icon-Pie-Chart2"></span> 장애인용 승강기 </a>
+                <a id="in" class="button medium border"><span class="im im-icon-Wheelchair"></span> 주출입구 접근로 </a>
+                <a id="no_height" class="button medium border"><span class="im im-icon-Wheelchair"></span> 주출입구 높이차이 제거 </a>
+                <a id="view" class="button medium border"><span class="im im-icon-Chair"></span> 장애인용 관람석 </a>
+                <a id="parking" class="button medium border"><span class="im im-icon-Car-3"></span> 장애인 전용 주차구역 </a>
+                <a id="auto_door" class="button medium border"><span class="im im-icon-Bar-Chart5"></span> 자동 출입구(문) </a>
+                <a id="wash" class="button medium border"><span class="im im-icon-Pie-Chart2"></span> 세면대 </a>
+                <a id="dotblock" class="button medium border"><span class="im im-icon-Statistic"></span> 점자블록 </a>
+                <a id="bed" class="button medium border"><span class="im im-icon-Bar-Chart5"></span> 객실 및 침실 </a>
+                <a id="waring" class="button medium border"><span class="im im-icon-Worker"></span> 경보 및 피난설비 </a>
+                <a id="dask" class="button medium border"><span class="im im-icon-Statistic"></span> 접수대 및 작업대 </a>
+                <a id="eatingwater" class="button medium border"><span class="im im-icon-Glass-Water"></span> 음료대 </a>
+                <a id="auto_dask" class="button medium border"><span class="im im-icon-Pie-Chart2"></span> 자동 판매기 </a>
+                <a id="bath" class="button medium border"><span class="im im-icon-Statistic"></span> 욕실 </a>
+                <a id="rocker" class="button medium border"><span class="im im-icon-Bathrobe"></span> 샤워실 및 탈의실 </a>
+
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+
+
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://d3js.org/topojson.v1.min.js"></script>
+
+    <script>
+    function toggle_visibility(id)
+    {
+        var e = document.getElementById(id);
+        if ( e.style.display == 'block' ) {
+          location.reload();
+
+        }
+        else
+            e.style.display = 'block';
+    }
+
+
+
+    $('#reload').click(function() {
+location.reload();
+});
+    </script>
+
+    <script>
+
+    var width = 800,
+        height = 600;
+    var svg = d3.select("#chart").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+
+    var map = svg.append("g").attr("id", "map"),
+        places = svg.append("g").attr("id", "places");
+    var projection = d3.geo.mercator()
+        .center([126.9895, 37.5651])
+        .scale(100000)
+        .translate([width/2, height/2]);
+
+    var path = d3.geo.path().projection(projection);
+d3.json("static/geo/seoul_municipalities_topo_simple.json", function(error, data) {
+    var features = topojson.feature(data, data.objects.seoul_municipalities_geo).features;
+    map.selectAll('path')
+        .data(features)
+        .enter().append('path')
+        .attr('class', function (d) {
+            console.log(d);
+            return 'municipality c' + d.properties.code
+        })
+        .attr('d', path);
+    {#map.selectAll('text')#}
+    {#    .data(features)#}
+    {#  .enter().append("text")#}
+    {#    .attr("transform", function(d) { return "translate(" + path.centroid(d) + ")"; })#}
+    {#    .attr("dy", ".35em")#}
+    {#    .attr("class", "municipality-label")#}
+    {#    .text(function(d) { return d.properties.name; })#}
+});
+
+document.getElementById("toilet").addEventListener("click", function() {
+toggle_visibility("chart");
+
+             d3.csv("static/csv/facility_name/toilet.csv", function (toilet) {
+
+
+                 places.selectAll("toilet")
+                     .data(toilet)
+                     .enter().append("circle")
+                     .attr("cx", function (d) {
+                         return projection([d.lng, d.lat])[0];
+                     })
+                     .attr("cy", function (d) {
+                         return projection([d.lng, d.lat])[1];
+                     })
+                     .attr("fill", "rgb(241, 174, 005)")
+                     .attr("r", 2);
+             });
+
+});
+
+document.getElementById("ev").addEventListener("click", function() {
+toggle_visibility("chart");
+
+
+    d3.csv("static/csv/facility_name/ev.csv", function (ev) {
+
+        {#toggle_visibility("places");#}
+        places.selectAll("ev")
+            .data(ev)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(093, 201, 188)")
+            .attr("r", 2);
+
+
+        places.selectAll("text")
+            .data(data)
+          .enter().append("text")
+            .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })
+            .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })
+            .text(function(d) { return d.name });
+
+    });
+});
+
+document.getElementById("in").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/in.csv", function (inner) {
+        console.log(inner);
+
+
+        places.selectAll("in")
+            .data(inner)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(038, 148, 137)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("no_height").addEventListener("click", function(){
+toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/no_heigh.csv", function (no_height) {
+        console.log(no_height);
+
+        places.selectAll("no_height")
+            .data(no_height)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(198, 058, 068)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("view").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/view.csv", function (view) {
+        console.log(view);
+
+
+        places.selectAll("view")
+            .data(view)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(246, 113, 072)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("parking").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/parking.csv", function (parking) {
+        console.log(parking);
+
+
+        places.selectAll("parking")
+            .data(parking)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(232, 156, 178)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("auto_door").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/auto_door.csv", function (auto_door) {
+        console.log(auto_door);
+
+
+        places.selectAll("auto_door")
+            .data(auto_door)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(217, 085, 123)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("wash").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/wash.csv", function (wash) {
+        console.log(wash);
+
+
+        places.selectAll("wash")
+            .data(wash)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(143, 137, 137)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("dotblock").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/dotblock.csv", function (dotblock) {
+        console.log(dotblock);
+
+
+        places.selectAll("dotblock")
+            .data(dotblock)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(104, 092, 078)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("bed").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/bed.csv", function (bed) {
+        console.log(bed);
+
+
+        places.selectAll("bed")
+            .data(bed)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(147, 156, 213)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("waring").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/waring.csv", function (waring) {
+        console.log(waring);
+
+
+        places.selectAll("waring")
+            .data(waring)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(147, 196, 211)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("dask").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/dask.csv", function (dask) {
+        console.log(dask);
+
+
+        places.selectAll("dask")
+            .data(dask)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(233, 129, 056)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("eatingwater").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/eatingwater.csv", function (eatingwater) {
+        console.log(eatingwater);
+
+
+        places.selectAll("eatingwater")
+            .data(eatingwater)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(035, 098, 107)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("auto_dask").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/auto_dask.csv", function (auto_dask) {
+        console.log(auto_dask);
+
+
+        places.selectAll("auto_dask")
+            .data(auto_dask)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(083, 173, 213)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("bath").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/bath.csv", function (bath) {
+        console.log(bath)
+
+
+        places.selectAll("bath")
+            .data(bath)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "rgb(229, 208, 173)")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+document.getElementById("rocker").addEventListener("click", function() {
+    toggle_visibility("chart");
+    d3.csv("static/csv/facility_name/rocker.csv", function (rocker) {
+        console.log(rocker)
+
+
+        places.selectAll("rocker")
+            .data(rocker)
+            .enter().append("circle")
+            .attr("cx", function (d) {
+                return projection([d.lng, d.lat])[0];
+            })
+            .attr("cy", function (d) {
+                return projection([d.lng, d.lat])[1];
+            })
+            .attr("fill", "oranges")
+            .attr("r", 2);
+
+
+        {#places.selectAll("text")#}
+        {#    .data(data)#}
+        {#  .enter().append("text")#}
+        {#    .attr("x", function(d) { return projection([d.lon, d.lat])[0]; })#}
+        {#    .attr("y", function(d) { return projection([d.lon, d.lat])[1] + 8; })#}
+        {#    .text(function(d) { return d.name });#}
+    });
+});
+
+    </script>
+
+{% endblock %}
+</html>
