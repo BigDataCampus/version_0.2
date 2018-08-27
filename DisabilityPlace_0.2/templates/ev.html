@@ -106,32 +106,33 @@
 {% block content %}
     <div class="dashboard-content">
 
-        <!-- Titlebar -->
+
+
+        {#장애인 승강기#}
+
         <div id="titlebar">
             <div class="row">
-                <a href ="#view1"><h2>편의시설</h2></a>
+                <div id="view"></div>
+                <a id ="view5"><h2>장애인용 승강기</h2></a>
+            </div>
 
+            <!-- Listings -->
+            <div class="col-lg-6 col-md-12">
+                <div class="dashboard-list-box margin-top-0">
+                    <h4><span class="im im-icon-Edit-Map"></span>  Geo Map</h4>
+                    <img src = "static/images/facility_map/ev.png"/>
+                </div>
+            </div>
 
+             <!-- Listings -->
+            <div class="col-lg-6 col-md-12">
+                <div class="dashboard-list-box margin-top-0">
+                    <h4><span class="im im-icon-Bar-Chart5"></span> <span class="im im-icon-Statistic"></span>Bar&Rander Chart</h4>
+                    <canvas id="ev"></canvas>
+                    <canvas id="ev_6"></canvas>
+                </div>
+            </div>
         </div>
-          <div class="sidebar-textbox">
-                    시설 평균 개수: 2133</br>
-                    평균이상의 시설명:<br/>
-                    <p>주출입구 접근로, 주출입구 높이차이 제거, 장애인 전용 주차구역, 장애인용 승강기, 장애인용 화장실, 자동 출입구(문)</p>
-                </div>
-              <div class="dashboard-list-box margin-top-0">
-                    <h4><span class="im im-icon-Bar-Chart5"></span> bargraph </h4>
-                    <canvas id="chart" ></canvas>
-                </div>
-
-              <div  class="dashboard-list-box margin-top-0">
-                    <h4><span class="im im-icon-Pie-Chart2"></span> polarArea </h4>
-                    <canvas id="chart2" ></canvas>
-
-                </div>
-
-
-        </div>
-        {#편의시설 토탈 그래프#}
 
 
     </div>

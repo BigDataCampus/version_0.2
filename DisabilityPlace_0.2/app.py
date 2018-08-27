@@ -957,7 +957,7 @@ def get_facility_category():
 
                     })
 
-@app.route('/eda1')
+@app.route('/eda')
 def eda1():
     places = Place.query.all()
     json_list = [i.serialize for i in places]
@@ -976,7 +976,54 @@ def eda3():
 def icon():
     return render_template('pages-icons.html')
 
-
+@app.route('/toilet')
+def toilet():
+    return render_template('toilet.html')
+@app.route('/ev')
+def ev():
+    return render_template('ev.html')
+@app.route('/in')
+def ins():
+    return render_template('in.html')
+@app.route('/no_heigh')
+def no_heigh():
+    return render_template('no_heigh.html')
+@app.route('/view')
+def view():
+    return render_template('view.html')
+@app.route('/parking')
+def parking():
+    return render_template('parking.html')
+@app.route('/auto_door')
+def auto_door():
+    return render_template('auto_door.html')
+@app.route('/wash')
+def wash():
+    return render_template('wash.html')
+@app.route('/dotblock')
+def dotblock():
+    return render_template('dotblock.html')
+@app.route('/bed')
+def bed():
+    return render_template('bed.html')
+@app.route('/waring')
+def waring():
+    return render_template('waring.html')
+@app.route('/dask')
+def dask():
+    return render_template('dask.html')
+@app.route('/eatingwater')
+def eatingwater():
+    return render_template('eatingwater.html')
+@app.route('/auto_dask')
+def auto_dask():
+    return render_template('auto_dask.html')
+@app.route('/bath')
+def bath():
+    return render_template('bath.html')
+@app.route('/rocker')
+def rocker():
+    return render_template('rocker.html')
 # eda-->
 
 if __name__ == '__main__':

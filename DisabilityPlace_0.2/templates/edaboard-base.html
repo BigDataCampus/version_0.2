@@ -51,7 +51,7 @@
                     <nav id="navigation" class="style-1">
                         <ul id="responsive">
 
-                            <li><a href="/">Home</a>
+                            <li><a href="/a">Home</a>
 {#                                <ul>#}
 {#                                    <li><a href="index.html">Home 1</a></li>#}
 {#                                    <li><a href="index-2.html">Home 2</a></li>#}
@@ -88,20 +88,20 @@
 {#                                </ul>#}
                             </li>
 
-                            <li><a class="current" href="#">User Panel</a>
-                                <ul>
-
-                                    <li><a href="dashboard-totalfacility.html">totalfacility</a></li>
-                                    <li><a href="dashboard.html">Dashboard</a></li>
-                                    <li><a href="dashboard-bookings.html">Bookings</a></li>
-                                    <li><a href="/eda3#view3">My Listings</a></li>
-                                    <li><a href="dashboard-reviews.html">Reviews</a></li>
-                                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>
-                                    <li><a href="dashboard-add-listing.html">Add Listing</a></li>
-                                    <li><a href="dashboard-my-profile.html">My Profile</a></li>
-                                    <li><a href="dashboard-invoice.html">Invoice</a></li>
-                                </ul>
-                            </li>
+{#                            <li><a class="current" href="#">User Panel</a>#}
+{#                                <ul>#}
+{##}
+{#                                    <li><a href="dashboard-totalfacility.html">totalfacility</a></li>#}
+{#                                    <li><a href="dashboard.html">Dashboard</a></li>#}
+{#                                    <li><a href="dashboard-bookings.html">Bookings</a></li>#}
+{#                                    <li><a href="/eda3#view3">My Listings</a></li>#}
+{#                                    <li><a href="dashboard-reviews.html">Reviews</a></li>#}
+{#                                    <li><a href="dashboard-bookmarks.html">Bookmarks</a></li>#}
+{#                                    <li><a href="dashboard-add-listing.html">Add Listing</a></li>#}
+{#                                    <li><a href="dashboard-my-profile.html">My Profile</a></li>#}
+{#                                    <li><a href="dashboard-invoice.html">Invoice</a></li>#}
+{#                                </ul>#}
+{#                            </li>#}
 
 {#                            <li><a href="#">Pages</a>#}
 {#                                <div class="mega-menu mobile-styles three-columns">#}
@@ -193,27 +193,46 @@
                 <ul data-submenu-title="Main">
 
                     <li class="active"><a href="/eda1"><i class="sl sl-icon-envelope-open"></i> total_facility </a></li>
-                    <li><a href="/eda2"><i class="sl sl-icon-settings"></i> facilty_map </a></li>
-                    <li><a href="/eda3"><i class="fa fa-calendar-check-o"></i> facilty </a></li>
-                </ul>
+                    <li><a href="/eda2"><i class="sl sl-icon-settings"></i> facilty_map </a>
 
-                <ul data-submenu-title="Listings">
-                    <li><a href="/eda3#view3"><i class="sl sl-icon-layers"></i> My Listings</a>
-{#                        <ul>#}
-{#                            <li><a href="dashboard-my-listings.html">Active <span class="nav-tag green">6</span></a></li>#}
-{#                            <li><a href="dashboard-my-listings.html">Pending <span class="nav-tag yellow">1</span></a></li>#}
-{#                            <li><a href="dashboard-my-listings.html">Expired <span class="nav-tag red">2</span></a></li>#}
-{#                        </ul>#}
                     </li>
-                    <li><a href="dashboard-reviews.html"><i class="sl sl-icon-star"></i> Reviews</a></li>
-                    <li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> Bookmarks</a></li>
-                    <li><a href="dashboard-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>
+                    <ul data-submenu-title="facility">
+                    <li><a href="#facilitylisten"><i class="fa fa-calendar-check-o"></i>facilty</a>
+                    <ul id="facilitylisten">
+                            <li><a href="/in">주출입구 접근로</a></li>
+                            <li><a href="/no_heigh">주출입구 높이차이 제거</a></li>
+                            <li><a href="/parking">장애인 전용 주차구역</a></li>
+                            <li><a href="/ev">장애인용 승강기</a></li>
+                            <li><a href="/toilet">장애인용 화장실</a></li>
+                            <li><a href="/auto_door">자동 출입구(문)</a></li>
+                            <li><a href="/waring">경보 및 피난설비</a></li>
+                            <li><a href="/bed">객실 및 침실</a></li>
+                            <li><a href="/dotblock">점자블록</a></li>
+                            <li><a href="/view">장애인용 관람석</a></li>
+                            <li><a href="/wash">세면대</a></li>
+                            <li><a href="/dask">접수대 및 작업대</a></li>
+                            <li><a href="/auto_dask">자동 판매기</a></li>
+                            <li><a href="/eatingwater">음료대</a></li>
+                            <li><a href="/bath">욕실</a></li>
+                            <li><a href="/rocker">샤워실 및 탈의실</a></li>
+                        </ul>
+                    </li>
+
+                 </ul>
+
                 </ul>
 
-                <ul data-submenu-title="Account">
-                    <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>
-                    <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>
-                </ul>
+{#                <ul data-submenu-title="Listings">#}
+{##}
+{#                    <li><a href="dashboard-reviews.html"><i class="sl sl-icon-star"></i> Reviews</a></li>#}
+{#                    <li><a href="dashboard-bookmarks.html"><i class="sl sl-icon-heart"></i> Bookmarks</a></li>#}
+{#                    <li><a href="dashboard-add-listing.html"><i class="sl sl-icon-plus"></i> Add Listing</a></li>#}
+{#                </ul>#}
+{##}
+{#                <ul data-submenu-title="Account">#}
+{#                    <li><a href="dashboard-my-profile.html"><i class="sl sl-icon-user"></i> My Profile</a></li>#}
+{#                    <li><a href="index.html"><i class="sl sl-icon-power"></i> Logout</a></li>#}
+{#                </ul>#}
 
         </div>
         </div>
