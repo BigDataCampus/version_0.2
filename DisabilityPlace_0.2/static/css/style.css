@@ -81,9 +81,9 @@
 /* ------------------------------------------------------------------- */
 /* 01. Import Section
 ---------------------------------------------------------------------- */
-@import url("../css/bootstrap-grid.css");					/* Default Reset, Typography, Forms, Responsive Grid etc. */
-@import url("../css/icons.css");							/* Webfont Icons: FontAwesome, Line, Simple Line */
-@import url("../css/plugins/revolutionslider.css");		/* Revolution Slider Style Sheets */
+@import url("bootstrap-grid.css");					/* Default Reset, Typography, Forms, Responsive Grid etc. */
+@import url("icons.css");							/* Webfont Icons: FontAwesome, Line, Simple Line */
+@import url("plugins/revolutionslider.css");		/* Revolution Slider Style Sheets */
 @import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans:500,600,700');
 
@@ -4535,15 +4535,15 @@ a.send-message-to-owner.button {
 
 
 /* Listing features */
-.listing-features:enabled {
+.listing-features {
 	width: 100%;
 	display: block;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	columns: 3;
-	font-size: 20px;
-	-webkit-columns: 6;
+	font-size: 16px;
+	-webkit-columns: 3;
 	-moz-columns: 3;
 }
 
@@ -8416,17 +8416,7 @@ body .notification strong { border: none; }
 	padding: 0;
 }
 
-
-.checkboxes.in-row {
-	width: 100%;
-	margin: 0;
-	padding: 0;
-	columns: 3;
-	font-size: 20px;
-	-webkit-columns: 8;
-}
-
-.checkboxes.in-row label { margin-top: 9px; background-color:ghostwhite}
+.checkboxes.in-row label { margin-top: 9px;}
 .checkboxes.one-in-row label { margin-top: 9px; width: 100%; }
 
 .checkboxes li { padding: 4px 0; }
@@ -8496,7 +8486,7 @@ body .notification strong { border: none; }
 .listing-item-container.list-layout .listing-item {
 	display: flex;
 	background-color: transparent;
-	height: 140px;
+	height: 220px;
 }
 
 .listing-item-container.list-layout .listing-item:before {
@@ -8519,6 +8509,7 @@ body .notification strong { border: none; }
 }
 
 .listing-item-container.list-layout .listing-item-image {
+	min-height: 200px;
 	flex: 2;
 	height: 100%;
 	overflow: hidden;
@@ -8657,12 +8648,6 @@ section.fullwidth .listing-item-container.list-layout,
 	z-index: 50;
 	box-sizing: border-box;
 }
-
-.listing-item-content .matrix {
-	display: grid;
-	grid-template-columns: 40px 40px 40px 40px;
-}
-
 
 .listing-item-content h3 {
 	color: #fff;
@@ -10684,7 +10669,7 @@ input:checked + .slider:before {
 
 .listing-img-container {
 	position: relative;
-	height: 230px;
+	height: 100%;
 	display: block;
 }
 
@@ -10735,8 +10720,8 @@ input:checked + .slider:before {
     height: 100%;
     width: 100%;
     display: block;
-	/*background: linear-gradient(to top, rgba(35,35,37,0.85) 0%, rgba(35,35,37,0.40) 35%, rgba(22,22,23,0) 60%, rgba(0,0,0,0) 100%);*/
-	background-color: rgba(255, 10, 0, 0.22);
+	background: linear-gradient(to top, rgba(35,35,37,0.85) 0%, rgba(35,35,37,0.40) 35%, rgba(22,22,23,0) 60%, rgba(0,0,0,0) 100%);
+	background-color: rgba(35,35,37,0.2);
 }
 
 .map-box .listing-item-content {
@@ -10749,9 +10734,9 @@ input:checked + .slider:before {
     box-sizing: border-box;
 }
 
-.map-box .listing-item-content h2 {
+.map-box .listing-item-content h3 {
     color: #fff;
-    font-size: 30px;
+    font-size: 18px;
     padding: 0 0 2px 0;
     font-weight: 500;
     margin: 0;
@@ -10901,8 +10886,7 @@ input:checked + .slider:before {
 	top: 0;
 	left: 0;
 	height: 520px;
-	width: 70%;
-    float: left;
+	width: 100%;
 	z-index: 990;
 	margin-bottom: 60px;
 }
@@ -11147,7 +11131,6 @@ input:checked + .slider:before {
 
 #streetView,
 #geoLocation,
-#gonnafind,
 #scrollEnabling,
 #mapnav-buttons a {
 	color: #333;
@@ -11168,9 +11151,7 @@ input:checked + .slider:before {
 #geoLocation:hover,
 #streetView:hover,
 #scrollEnabling:hover,
-#gonnafind:hover,
 #scrollEnabling.enabled,
-#gonnafind.enabled,
 #mapnav-buttons a:hover {
 	background-color: #66676b;
 	color: #fff;
@@ -11199,7 +11180,6 @@ input:checked + .slider:before {
 
 #streetView,
 #geoLocation,
-#gonnafind,
 #scrollEnabling {
 	position: absolute;
 	top: 20px;
@@ -11211,7 +11191,6 @@ input:checked + .slider:before {
 
 #streetView:before,
 #geoLocation:before,
-#gonnafind:before,
 #scrollEnabling:before {
 	content: "\e015";
 	font-family: "simple-line-icons";
@@ -11222,7 +11201,6 @@ input:checked + .slider:before {
 	line-height: 1px;
 }
 
-#gonnafind:before,
 #scrollEnabling:before {
 	margin-left: -3px;
 }
@@ -11242,7 +11220,6 @@ input:checked + .slider:before {
 	padding: 8px 11px;
 }
 
-
 #geoLocation:before {
 	content: "\f192";
 	font-family: "FontAwesome";
@@ -11250,7 +11227,6 @@ input:checked + .slider:before {
 	margin: 0;
 	top: 2px;
 }
-
 
 
 /* ---------------------------------- */

@@ -1,6 +1,133 @@
-{% extends 'base2.html' %}
+{#{% extends 'base2.html' %}#}
+{##}
+{#{% block content %}#}
+{##}
 
-{% block content %}
+<!DOCTYPE html>
+<head>
+
+    <!-- Basic Page Needs
+    ================================================== -->
+    <title>장애인을 위한 편의시설</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="/static/FF263/style24.css">
+    <link rel="stylesheet" href="/static/FF263/main.css" id="colors">
+
+
+{#    <style>#}
+{#        /* Always set the map height explicitly to define the size of the div#}
+{#         * element that contains the map. */#}
+{#        #map {#}
+{#            height: 100%;#}
+{#        }#}
+{##}
+{#        /* Optional: Makes the sample page fill the window. */#}
+{#        html, body {#}
+{#            height: 100%;#}
+{#            margin: 0;#}
+{#            padding: 0;#}
+{#        }#}
+
+{##}
+{#    </style>#}
+<style>
+    {#핀 비쥬얼 #}
+    .cluster-visible{
+        {#display:none;#}
+    }
+
+        {##floating-panel {#}
+        {#    position: center;#}
+        {#    top: 0px;#}
+        {#    left: 25%;#}
+        {#    z-index: 5;#}
+        {#    background-color: #fff;#}
+        {#    padding: 5px;#}
+        {#    border: 1px solid #999;#}
+        {#    text-align: center;#}
+        {#    font-family: 'Roboto', 'sans-serif';#}
+        {#    line-height: 30px;#}
+        {#    padding-left: 10px;#}
+        {#}#}
+    #map-container{
+        width:100%;
+    }
+.map-box .listing-img-container img {
+    max-width: 30%;
+}
+.listing-item-content{
+    background: rgba(228, 155, 082, 0.6); ;
+}
+.sidenav  h2{
+    color: orange;
+}
+.sidenav {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 50;
+    top: 10px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    color:white;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+#mySidenav{
+    z-index: 5000;
+}
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+#mySidenav2{
+    display:none;
+}
+a listing-img-container{
+height:0;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- Wrapper -->
+<div class="wrapper" id="main">
+    <!-- Header Container
+    ================================================== -->
+    {% include 'header.html' %}
+
 
 
 <!-- Content
@@ -41,5 +168,98 @@
         </div>
 	</div>
 </div>
+{##}
+{#{% endblock %}#}
 
-{% endblock %}
+
+<!-- Scripts
+================================================== -->
+
+<script type="text/javascript" src="/static/scripts/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="/static/scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="/static/scripts/chosen.min.js"></script>
+<script type="text/javascript" src="/static/scripts/slick.min.js"></script>
+<script type="text/javascript" src="/static/scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="/static/scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="/static/scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="/static/scripts/counterup.min.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="/static/scripts/custom.js"></script>
+
+<!-- Google Autocomplete -->
+<script>
+    function initAutocomplete() {
+        var input = document.getElementById('autocomplete-input');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+        });
+
+        if ($('.main-search-input-item')[0]) {
+            setTimeout(function () {
+                $(".pac-container").prependTo("#autocomplete-container");
+            }, 300);
+        }
+    }
+</script>
+
+<!-- Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete&key=AIzaSyDQq5Nm_tQE5-0LMoN0UAU2YTL5CB4HWoE"></script>
+<script type="text/javascript" src="/static/scripts/infobox.min.js"></script>
+<script type="text/javascript" src="/static/scripts/markerclusterer.js"></script>
+<script type="text/javascript" src="/static/FF263/maps.js"></script>
+
+<script>
+/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
+
+    $(document).ready(function(){
+        $("#geoLocation").click(function(){
+            console.log('click');
+            $("#mySidenav2").show();
+            $("#sh").hide();
+
+        });
+    });
+
+    $(document).ready(function() {
+        $("#Back").click(function () {
+
+
+            $("#mySidenav2").hide();
+            $("#sh").show();
+
+        });
+    });
+
+
+    // Remove and store on focus
+    // Restore if empty on blur
+    $('#address')
+            .focus(function(e) {
+                    var $this = $(this);
+                    $this.data('lastValue', $this.val()).val('');
+            })
+            .blur(function(e) {
+                    var $this = $(this);
+                    if($this.val()=='') $this.val($this.data('lastValue'));
+            });
+</script>
+
+</body>
+</html>

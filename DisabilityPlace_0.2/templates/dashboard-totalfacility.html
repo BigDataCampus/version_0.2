@@ -105,7 +105,7 @@ svg text {
         <!-- Titlebar -->
         <div id="titlebar">
             <div class="row">
-                    <a href ="#view1"><h2>서울시 전체 편의시설</h2></a>
+                    <a href ="#view1"><h2>서울시 지역구 편의시설</h2></a>
 
             </div>
         </div>
@@ -365,6 +365,7 @@ quantize.domain([d3.min(data, function(d){ return +d[MAP_VALUE] }),
         return d.name;
       })
       .attr("width", function(d, i) {
+          console.log(d);
         return x(d.value);
       })
       .attr("height", bar_height)

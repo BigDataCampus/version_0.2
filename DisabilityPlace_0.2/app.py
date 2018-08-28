@@ -22,6 +22,7 @@ def index():
         return 'Logged in as %s' % escape(session['username'])
     return 'You are not logged in'
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -34,12 +35,12 @@ def login():
         </form>
     '''
 
+
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
     session.pop('username', None)
     return redirect(url_for('index'))
-
 
 
 admin = Admin(app)
@@ -52,6 +53,7 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.username
+
 
 class Place(db.Model):
     __tablename__ = 'Place'
@@ -74,6 +76,7 @@ class Place(db.Model):
             'category' : self.category
         }
 
+
 class Facility(db.Model):
     facility_ID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     facility_available_name = db.Column(db.String(50),nullable=False)
@@ -88,6 +91,7 @@ class Facility(db.Model):
             'facility_is_available':self.facility_is_available,
             'place_ID':self.place_ID
         }
+
 
 admin.add_view(ModelView(User, db.session))
 admin.add_view(ModelView(Place, db.session))
@@ -149,9 +153,9 @@ def getData():
 @app.route('/listings-single/<place_id>')
 def place_SingleListing(place_id):
     info = Place.query.filter_by(place_ID=place_id)
-    facinfo = Facility.query.filter_by(place_ID = place_id)
+    facinfo = Facility.query.filter_by(place_ID=place_id)
 
-    return render_template("listings-single-page.html", info = info.all(), facinfo = facinfo.all())
+    return render_template("listings-single-page.html", info=info.all(), facinfo=facinfo.all())
 
 @app.route('/getCF', methods=['POST'])
 def getCF():
@@ -338,6 +342,7 @@ def get_place():
                    }
 )
 
+
 @app.route('/get_facility')
 def get_facility():
 
@@ -392,6 +397,7 @@ def get_facility():
  6631,
  7034]
                     } )
+
 
 @app.route('/get_facility_category')
 def get_facility_category():
@@ -1064,6 +1070,7 @@ def get_facility_category():
 
                     })
 
+
 @app.route('/eda')
 def eda1():
     places = Place.query.all()
@@ -1071,14 +1078,15 @@ def eda1():
     json_list = json_list[:4000]
     return render_template('dashboard-totalfacility.html', places=json_list)
 
+
 @app.route('/eda2')
 def eda2():
     return render_template('dashboard-facility-eda-map.html')
 
+
 @app.route('/eda3')
 def eda3():
     return render_template('dashboard-after-facility-map.html')
-
 
 
 @app.route('/eda4')
@@ -1091,57 +1099,121 @@ def icon():
     return render_template('pages-icons.html')
 
 
-
 @app.route('/toilet')
 def toilet():
     return render_template('toilet.html')
 
+
 @app.route('/ev')
 def ev():
     return render_template('ev.html')
+
+
 @app.route('/in')
 def ins():
     return render_template('in.html')
 
+
 @app.route('/no_heigh')
 def no_heigh():
     return render_template('no_heigh.html')
+
+
 @app.route('/view')
 def view():
     return render_template('view.html')
+
+
 @app.route('/parking')
 def parking():
     return render_template('parking.html')
+
+
 @app.route('/auto_door')
 def auto_door():
     return render_template('auto_door.html')
+
+
 @app.route('/wash')
 def wash():
     return render_template('wash.html')
+
+
 @app.route('/dotblock')
 def dotblock():
     return render_template('dotblock.html')
+
+
 @app.route('/bed')
 def bed():
     return render_template('bed.html')
+
+
 @app.route('/waring')
 def waring():
     return render_template('waring.html')
+
+
 @app.route('/dask')
 def dask():
     return render_template('dask.html')
+
+
 @app.route('/eatingwater')
 def eatingwater():
     return render_template('eatingwater.html')
+
+
 @app.route('/auto_dask')
 def auto_dask():
     return render_template('auto_dask.html')
+
+
 @app.route('/bath')
 def bath():
     return render_template('bath.html')
+
+
 @app.route('/rocker')
 def rocker():
     return render_template('rocker.html')
+
+@app.route('/eda5')
+def eda5():
+    return render_template('dashboard-totalfacility2.html')
+@app.route('/eda6')
+def eda6():
+    return render_template('dashboard-totalfacility3.html')
+
+@app.route('/eda7')
+def eda7():
+    return render_template('dashboard-totalfacility4.html')
+
+
+
+@app.route('/base3')
+def base3():
+    places = Place.query.all()
+    json_list = [i.serialize for i in places]
+    faclist = ['객실 및 침실',
+               '경보 및 피난설비',
+               '샤워실 및 탈의실',
+               '세면대',
+               '욕실',
+               '음료대',
+               '자동 출입구(문)',
+               '자동 판매기',
+               '장애인 전용 주차구역',
+               '장애인용 관람석',
+               '장애인용 승강기',
+               '장애인용 화장실',
+               '점자블록',
+               '접수대 및 작업대',
+               '주출입구 높이차이 제거',
+               '주출입구 접근로', ]
+    return render_template('base3.html', places=json_list, faclist=faclist)
+
+
 # eda-->
 
 if __name__ == '__main__':

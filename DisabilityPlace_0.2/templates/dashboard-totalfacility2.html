@@ -1,0 +1,210 @@
+{% extends "edaboard-base.html" %}
+
+{% block css %}
+<style>
+svg text {
+          pointer-events: none;
+        }
+
+    svg .municipality-label {
+          fill: black;
+          font-size: 10px;
+          font-weight: 900;
+          text-anchor: middle;
+        }
+
+    svg #map text {
+          color: #333;
+          font-size: 10px;
+          text-anchor: middle;
+        }
+
+    .dashboard-content {
+         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+         background: white;
+        }
+
+    .categories {
+       fill: none;
+       stroke: #fff;
+       stroke-linejoin: round;
+       }
+
+    .categories-choropleth {
+        fill: #ccc;
+       }
+
+    #tooltip-container {
+      position: fixed;
+      background-color: #fff;
+      color: #000;
+      padding: 10px;
+      border: 1px solid;
+      display: none;
+    }
+
+    #canvas svg {
+      border: 0px;
+    }
+
+    .tooltip_key {
+      font-weight: bold;
+    }
+
+    .tooltip_value {
+      margin-left: 20px;
+      float: right;
+    }
+
+    .x-axis {
+      fill: #000;
+    }
+
+    .chart {
+      background: #fff;
+      margin: 5px;
+    }
+
+    .chart .category-bar {
+      stroke: white;
+      fill: steelblue;
+    }
+
+    .chart .score {
+      fill: white;
+    }
+
+    .chart text.name {
+      fill: #000;
+    }
+
+    .chart line {
+      stroke: #c1c1c1;
+    }
+
+    .chart .rule {
+      fill: #000;
+    }
+
+    .main-category-text {
+      fill: #FF4A4A;
+    }
+
+    .main-category-bar {
+      stroke: #FF4A4A;
+      stroke-width: 2px;
+    }
+
+</style>
+{% endblock css %}
+
+
+{% block content %}
+    <div class="dashboard-content">
+
+
+        {#주출입구 접근로#}
+        <!-- Titlebar -->
+      <div class="row">
+          <a id="view2"><h2>인구수와 시설 수 비교</h2></a>
+            </div>
+
+
+
+            <!-- Listings -->
+        <div class="dashboard-list-box margin-top-0">
+            <div class="dashboard-list-box margin-top-0">
+                <h4> <span class="im im-icon-Pie-Chart2"></span> Polar Area</h4>
+                <canvas id="chart2"></canvas>
+            </div>
+        </div>
+
+
+        </div>
+
+
+
+    </div>
+
+{% endblock %}
+
+
+
+<!-- Scripts
+================================================== -->
+{% include 'basescript.html' %}
+{% block script %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+<script>
+
+$(document).ready(function() {
+            $.get('/get_facility', function (data) {
+                var ctx = document.getElementById("chart2");
+                var myRadarChart = new Chart(ctx, {
+                    type: 'polarArea',
+                    data :{
+                        datasets: [{
+                            data: [391753, 8324],
+                            backgroundColor: [
+                                "rgba(241, 174, 005, 0.6)",
+                                "rgba(093, 201, 188, 0.6)",
+                                "rgba(038, 148, 137, 0.6)",
+                                "rgba(198, 058, 068, 0.6)",
+                                "rgba(246, 113, 072, 0.6)",
+                                "rgba(232, 156, 178, 0.6)",
+                                "rgba(232, 156, 178, 0.6)",
+                                "rgba(143, 137, 137, 0.6)",
+                                "rgba(104, 092, 078, 0.6)",
+                                "rgba(147, 156, 213, 0.6)",
+                                "rgba(147, 196, 211, 0.6)",
+                                "rgba(233, 129, 056, 0.6)",
+                                "rgba(035, 098, 107, 0.6)",
+                                "rgba(083, 173, 213, 0.6)",
+                                "rgba(245, 235, 220, 0.6)"
+
+
+
+                        ],
+                        borderColor: [
+                               "rgba(241, 174, 005, 1)",
+                                "rgba(093, 201, 188, 1)",
+                                "rgba(038, 148, 137, 1)",
+                                "rgba(198, 058, 068, 1)",
+                                "rgba(246, 113, 072, 1)",
+                                "rgba(232, 156, 178, 1)",
+                                "rgba(232, 156, 178, 1)",
+                                "rgba(143, 137, 137, 1)",
+                                "rgba(104, 092, 078, 1)",
+                                "rgba(147, 156, 213, 1)",
+                                "rgba(147, 196, 211, 1)",
+                                "rgba(233, 129, 056, 1)",
+                                "rgba(035, 098, 107, 1)",
+                                "rgba(083, 173, 213, 1)",
+                                "rgba(245, 235, 220, 1)"
+
+                        ],
+                        }],
+
+                        // These labels appear in the legend and in the tooltips when hovering different arcs
+                        labels: ['장애인 거주자', '편의시설을 보유한 시설 수'],
+
+                    },
+                });
+            });
+        });
+
+
+</script>
+{% endblock %}
+
+
+
+
+
+
+</body>
+</html>

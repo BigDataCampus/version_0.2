@@ -1,0 +1,3749 @@
+{% extends "edaboard-base.html" %}
+
+{% block css %}
+    <style>
+    body {
+    overflow-x:hidden;
+    {#overflow-y:hidden;#}
+    }
+        svg text {
+            pointer-events: none;
+        }
+
+        svg .municipality-label {
+            fill: black;
+            font-size: 10px;
+            font-weight: 900;
+            text-anchor: middle;
+        }
+
+        svg #map text {
+            color: #333;
+            font-size: 10px;
+            text-anchor: middle;
+        }
+
+        .dashboard-content {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            background: white;
+        }
+
+        .categories {
+            fill: none;
+            stroke: #fff;
+            stroke-linejoin: round;
+        }
+
+        .categories-choropleth {
+            fill: #ccc;
+        }
+
+        #tooltip-container {
+            position: fixed;
+            background-color: #fff;
+            color: #000;
+            padding: 10px;
+            border: 1px solid;
+            display: none;
+        }
+
+        #canvas svg {
+            border: 0px;
+        }
+
+        .tooltip_key {
+            font-weight: bold;
+        }
+
+        .tooltip_value {
+            margin-left: 20px;
+            float: right;
+        }
+
+        .x-axis {
+            fill: #000;
+        }
+
+        .chart {
+            background: #fff;
+            margin: 5px;
+        }
+
+        .chart .category-bar {
+            stroke: white;
+            fill: steelblue;
+        }
+
+        .chart .score {
+            fill: white;
+        }
+
+        .chart text.name {
+            fill: #000;
+        }
+
+        .chart line {
+            stroke: #c1c1c1;
+        }
+
+        .chart .rule {
+            fill: #000;
+        }
+
+        .main-category-text {
+            fill: #FF4A4A;
+        }
+
+        .main-category-bar {
+            stroke: #FF4A4A;
+            stroke-width: 2px;
+        }
+
+    </style>
+{% endblock css %}
+
+
+{% block content %}
+    <div class="dashboard-content">
+
+
+        {#주출입구 접근로#}
+        <!-- Titlebar -->
+      <div class="row">
+                <a id="view2"><h2>거주자 편의시설 비교</h2></a>
+            </div>
+
+
+
+            <!-- Listings -->
+        <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box margin-top-0">
+                <h4><span class="im im-icon-Edit-Map"></span>  Geo Map 편의시설 수</h4>
+                <img src = "static/FF262/1.png"/>
+
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box margin-top-0">
+                <h4><span class="im im-icon-Edit-Map"></span> Geo Map 장애인 거주자 수</h4>
+                 <img src ="static/FF262/3.png"/>
+            </div>
+        </div>
+        <!-- Listings -->
+        <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box margin-top-0">
+                <h4><span class="im im-icon-Bar-Chart5"></span>Bar 편의시설 수</h4>
+                 <img src = "static/FF263/2.png"/>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="dashboard-list-box margin-top-0">
+            <h4><span class="im im-icon-Bar-Chart5"></span>Bar 장애인 거주자 수</h4>
+                <img src = "static/FF263/4.png"/>
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+{% endblock %}
+
+
+
+<!-- Scripts
+================================================== -->
+{% include 'basescript.html' %}
+{% block script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- chart -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script>
+
+
+
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("chart");
+                    var myChart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: data.x,
+
+                            datasets: [
+                                {
+                                    data : data.y,
+                                    label: "count",
+                                                  backgroundColor: [
+                                "rgba(241, 174, 005, 0.6)",
+                                "rgba(093, 201, 188, 0.6)",
+                                "rgba(038, 148, 137, 0.6)",
+                                "rgba(198, 058, 068, 0.6)",
+                                "rgba(246, 113, 072, 0.6)",
+                                "rgba(232, 156, 178, 0.6)",
+                                "rgba(232, 156, 178, 0.6)",
+                                "rgba(143, 137, 137, 0.6)",
+                                "rgba(104, 092, 078, 0.6)",
+                                "rgba(147, 156, 213, 0.6)",
+                                "rgba(147, 196, 211, 0.6)",
+                                "rgba(233, 129, 056, 0.6)",
+                                "rgba(035, 098, 107, 0.6)",
+                                "rgba(083, 173, 213, 0.6)",
+                                "rgba(245, 235, 220, 0.6)"
+
+
+
+                        ],
+                        borderColor: [
+                             "rgba(241, 174, 005, 1)",
+                                "rgba(093, 201, 188, 1)",
+                                "rgba(038, 148, 137, 1)",
+                                "rgba(198, 058, 068, 1)",
+                                "rgba(246, 113, 072, 1)",
+                                "rgba(232, 156, 178, 1)",
+                                "rgba(232, 156, 178, 1)",
+                                "rgba(143, 137, 137, 1)",
+                                "rgba(104, 092, 078, 1)",
+                                "rgba(147, 156, 213, 1)",
+                                "rgba(147, 196, 211, 1)",
+                                "rgba(233, 129, 056, 1)",
+                                "rgba(035, 098, 107, 1)",
+                                "rgba(083, 173, 213, 1)",
+                                "rgba(245, 235, 220, 1)"
+
+                        ],
+                                    borderWidth: 1
+                                }]
+                        },
+
+
+                        options: {
+                            scales: {
+                                xAxes: [{
+                                     categorySpacing: 0,
+                                    stacked: true,
+                                    diplay: true,
+                                            ticks: {
+                       autoSkip: false
+                    }
+                                }],
+                                yAxes: [{
+                                    stacked: true
+                                }],
+                                legend: {display: true},
+                                title: {
+                                    display: true,
+                                    text: '편의시설 수'
+                                }
+                            }
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.get('/get_facility', function (data) {
+                var ctx = document.getElementById("chart2");
+                var myRadarChart = new Chart(ctx, {
+                    type: 'polarArea',
+                    data :{
+                        datasets: [{
+                            data: data.y1,
+                            backgroundColor: [
+                                "rgba(241, 174, 005, 0.6)",
+                                "rgba(093, 201, 188, 0.6)",
+                                "rgba(038, 148, 137, 0.6)",
+                                "rgba(198, 058, 068, 0.6)",
+                                "rgba(246, 113, 072, 0.6)",
+                                "rgba(232, 156, 178, 0.6)",
+                                "rgba(232, 156, 178, 0.6)",
+                                "rgba(143, 137, 137, 0.6)",
+                                "rgba(104, 092, 078, 0.6)",
+                                "rgba(147, 156, 213, 0.6)",
+                                "rgba(147, 196, 211, 0.6)",
+                                "rgba(233, 129, 056, 0.6)",
+                                "rgba(035, 098, 107, 0.6)",
+                                "rgba(083, 173, 213, 0.6)",
+                                "rgba(245, 235, 220, 0.6)"
+
+
+
+                        ],
+                        borderColor: [
+                               "rgba(241, 174, 005, 1)",
+                                "rgba(093, 201, 188, 1)",
+                                "rgba(038, 148, 137, 1)",
+                                "rgba(198, 058, 068, 1)",
+                                "rgba(246, 113, 072, 1)",
+                                "rgba(232, 156, 178, 1)",
+                                "rgba(232, 156, 178, 1)",
+                                "rgba(143, 137, 137, 1)",
+                                "rgba(104, 092, 078, 1)",
+                                "rgba(147, 156, 213, 1)",
+                                "rgba(147, 196, 211, 1)",
+                                "rgba(233, 129, 056, 1)",
+                                "rgba(035, 098, 107, 1)",
+                                "rgba(083, 173, 213, 1)",
+                                "rgba(245, 235, 220, 1)"
+
+                        ],
+                        }],
+
+                        // These labels appear in the legend and in the tooltips when hovering different arcs
+                        labels: data.x1,
+
+                    },
+                });
+            });
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("in");
+                    var myChart = new Chart(ctx, {
+                        type: 'pie',
+
+                        data: {
+                            labels: data.in,
+
+                            datasets: [
+                                {
+                                    data : data.iny,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {# in 주출입구#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("in2");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.inrn,
+
+                            datasets: [
+                                {
+                                    data : data.inr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("in_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.in_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.in_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#no_heigh 주출입구 높이차이 제거#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    var ctx = document.getElementById("no_heigh");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.no_heighrn,
+
+                            datasets: [
+                                {
+
+                                    data : data.no_heighr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data.no_heigh_6);
+                    var ctx = document.getElementById("no_heigh_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.no_heigh_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.no_heigh_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+
+        {#parking 장애인 전용 주차구역#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("parking");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.parkingrn,
+
+                            datasets: [
+                                {
+                                    data : data.parkingr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("parking_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.parking_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.parking_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#ev 장애인용 승강기#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("ev");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.evrn,
+
+                            datasets: [
+                                {
+                                    data : data.evr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("ev_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.ev_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.ev_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+
+        {#toilet 장애인용 화장실#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("toilet");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.toiletrn,
+
+                            datasets: [
+                                {
+                                    data : data.toiletr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("toilet_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.toilet_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.toilet_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#auto_door 자동 출입구(문)#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("auto_door");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.auto_doorrn,
+
+                            datasets: [
+                                {
+                                    data : data.auto_doorr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("auto_door_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.auto_door_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.auto_door_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#waring 경보및 피난설비#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("waring");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.waringrn,
+
+                            datasets: [
+                                {
+                                    data : data.waringr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("waring_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.waring_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.waring_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#bed 객실및 침실#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("bed");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.bedrn,
+
+                            datasets: [
+                                {
+                                    data : data.bedr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("bed_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.bed_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.bed_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#dotblock 점자블록#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("dotblock");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.dotblockrn,
+
+                            datasets: [
+                                {
+                                    data : data.dotblockr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("dotblock_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.dotblock_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.dotblock_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#view  장애인용 관람석#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data.viewrn);
+                    console.log(data.viewr);
+                    var ctx = document.getElementById("views");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.viewrn,
+
+                            datasets: [
+                                {
+                                    data : data.viewr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("view_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.view_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.view_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#wash 세면대#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("wash");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.washrn,
+
+                            datasets: [
+                                {
+                                    data : data.washr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("wash_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.wash_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.wash_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#dask 점수대및 작업대#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("dask");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.daskrn,
+
+                            datasets: [
+                                {
+                                    data : data.daskr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("dask_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.dask_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.dask_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#auto_dask 자동 판매기#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("auto_dask");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.auto_daskrn,
+
+                            datasets: [
+                                {
+                                    data : data.auto_daskr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("auto_dask_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.auto_dask_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.auto_dask_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#eatingwater 음료대#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("eatingwater");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.eatingwaterrn,
+
+                            datasets: [
+                                {
+                                    data : data.eatingwaterr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("eatingwater_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.eatingwater_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.eatingwater_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#bath 욕실#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("bath");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.bathrn,
+
+                            datasets: [
+                                {
+                                    data : data.bathr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("bath_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.bath_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.bath_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+        {#rocker 샤워실및 탈의실#}
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("rocker");
+                    var myChart = new Chart(ctx, {
+                        type: 'horizontalBar',
+
+                        data: {
+                            labels: data.rockerrn,
+
+                            datasets: [
+                                {
+                                    data : data.rockerr,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+        $(document).ready(function() {
+            $.ajax({
+                url : '/get_facility_category',
+                method: "GET",
+                success : function (data) {
+                    console.log(data)
+                    var ctx = document.getElementById("rocker_6");
+                    var myChart = new Chart(ctx, {
+                        type: 'radar',
+
+                        data: {
+                            labels: data.rocker_6_n,
+
+                            datasets: [
+                                {
+                                    data : data.rocker_6,
+                                    label: "count",
+
+                                backgroundColor: [
+
+                                "rgba(241, 174, 005,0.6)",
+                                "rgba(093, 201, 188,0.6)",
+                                "rgba(038, 148, 137,0.6)",
+                                "rgba(198, 058, 068,0.6)",
+                                "rgba(246, 113, 072,0.6)",
+                                "rgba(232, 156, 178,0.6)",
+                                "rgba(217, 085, 123,0.6)",
+                                "rgba(143, 137, 137,0.6)",
+                                "rgba(104, 092, 078,0.6)",
+                                "rgba(147, 156, 213,0.6)",
+                                "rgba(147, 196, 211,0.6)",
+                                "rgba(136, 133, 164,0.6)",
+                                "rgba(233, 129, 056,0.6)",
+                                "rgba(035, 098, 107,0.6)",
+                                "rgba(083, 173, 213,0.6)",
+                                "rgba(229, 208, 173,0.6)",
+                                "rgba(149, 056, 058,0.6)",
+                                "rgba(245, 235, 220,0.6)",
+                                "rgba(059, 056, 056,0.6)",
+                                "rgba(194, 194, 194,0.6)",
+                                "rgba(228, 155, 082,0.6)",
+                                "rgba(158, 174, 114,0.6)",
+                                "rgba(220, 192, 142,0.6)",
+                                "rgba(0, 0, 255,0.6)",
+                                "rgba(255, 0, 0,0.6)"
+
+                                ],
+                                 borderColor: [
+                                "rgba(241, 174, 005,1)",
+                                "rgba(093, 201, 188,1)",
+                                "rgba(038, 148, 137,1)",
+                                "rgba(198, 058, 068,1)",
+                                "rgba(246, 113, 072,1)",
+                                "rgba(232, 156, 178,1)",
+                                "rgba(217, 085, 123,1)",
+                                "rgba(143, 137, 137,1)",
+                                "rgba(104, 092, 078,1)",
+                                "rgba(147, 156, 213,1)",
+                                "rgba(147, 196, 211,1)",
+                                "rgba(136, 133, 164,1)",
+                                "rgba(233, 129, 056,1)",
+                                "rgba(035, 098, 107,1)",
+                                "rgba(083, 173, 213,1)",
+                                "rgba(229, 208, 173,1)",
+                                "rgba(149, 056, 058,1)",
+                                "rgba(245, 235, 220,1)",
+                                "rgba(059, 056, 056,1)",
+                                "rgba(194, 194, 194,1)",
+                                "rgba(228, 155, 082,1)",
+                                "rgba(158, 174, 114,1)",
+                                "rgba(220, 192, 142,1)",
+                                "rgba(0, 0, 255,1)",
+                                "rgba(255, 0, 0,1)"
+
+                        ],
+                                    {#borderWidth: 1#}
+                                }]
+                        },
+
+
+                        options: {
+                            {#scales: {#}
+                            {#    xAxes: [{#}
+                            {#        stacked: true,#}
+                            {#        diplay: true#}
+                            {#    }],#}
+                            {#    yAxes: [{#}
+                            {#        stacked: true#}
+                            {#    }],#}
+                            {#    legend: {display: true},#}
+                            {#    title: {#}
+                            {#        display: true,#}
+                            {#        text: '편의시설 수'#}
+                            {#    }#}
+                            {#    }#}
+                            responsive : true
+                        }
+                    });
+
+                }
+            });
+
+        });
+
+
+
+
+
+</script>
+
+<script>
+</script>
+{% endblock %}
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<head>
+
+<!-- Basic Page Needs
+================================================== -->
+<title>편의시설 정보 제공</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<!-- CSS
+================================================== -->
+<link rel="stylesheet" href="static/css/style.css">
+<link rel="stylesheet" href="static/css/colors/main.css" id="colors">
+<style>
+    {#핀 비쥬얼 #}
+    .cluster-visible{
+        {#display:none;#}
+    }
+
+
+    .map-container{
+        width:100%;
+    }
+.map-box .listing-img-container img {
+    max-width: 25%;
+}
+.listing-item-content{
+    background: rgba(228, 155, 082, 0.6); ;
+}
+.sidenav  h2{
+    color: orange;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 50;
+    top: 10px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    color:white;
+}
+
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+#mySidenav{
+    z-index: 5000;
+}
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+
+</head>
+
+<body>
+
+
+<!-- Wrapper -->
+
+
+<!-- Header Container
+================================================== -->
+
+
+{#<div class="clearfix"></div>#}
+<!-- Header Container / End -->
+<div id="wrapper">
+    {% include "header.html" %}
+
+
+    <div class="container" id="main">
+
+  <span style="font-size:20px; color:orange; background:  #2a2a2a;; cursor:pointer" onclick="openNav()"><i class="fa fa-fw"></i> 편의시설 선택</span>
+        <!-- Map
+        ================================================== -->
+        <div id="map-container" class="fullwidth-home-map">
+
+            <div id="map" data-map-zoom="11" dd='{{ places | tojson }}'>
+                <!-- map goes here -->
+            </div>
+            <div id="floating-panel">
+                <input id="address" type="textbox" value="가고싶은 곳 입력하세요">
+                <input id="submit" type="button" value="Geocode">
+            </div>
+            <form action='/listing'>
+                <div class="main-search-inner">
+
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div class="main-search-input">
+
+                                    <div class="main-search-input-item">
+                                        <input type="text" placeholder="What are you looking for?" value=""/>
+                                    </div>
+
+                                    <div class="main-search-input-item location">
+                                        <div id="autocomplete-container">
+                                            <input id="autocomplete-input" type="text" placeholder="Location">
+                                        </div>
+                                        <a href="#"><i class="fa fa-map-marker"></i></a>
+                                    </div>
+
+                                    <div class="main-search-input-item">
+                                        <select data-placeholder="All Categories" class="chosen-select" >
+                                            <option>All Categories</option>
+                                            <option>Shops</option>
+                                            <option>Hotels</option>
+                                            <option>Restaurants</option>
+                                            <option>Fitness</option>
+                                            <option>Events</option>
+                                        </select>
+                                    </div>
+
+                                    <button class="button">Search</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- Scroll Enabling Button -->
+
+
+            <span onclick="openNav1()"> <a  href="#" id="gonnafind" title="자신이 원하는 위치를 클릭 하였을 때 유사한 건물들을 알려줍니다.">장소 주변 추천</a></span>
+            <a href="#" id="scrollEnabling" title="Enable or disable scrolling on map">Enable Scrolling</a>
+            <a href="#" id="geoLocation" title="자신이 위치한 주변에 유사한 건물들을 알려줍니다.">내 위치 주변 추천</a>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- Scripts
+================================================== -->
+<script type="text/javascript" src="/static/scripts/jquery-2.2.0.min.js"></script>
+<script type="text/javascript" src="/static/scripts/mmenu.min.js"></script>
+<script type="text/javascript" src="/static/scripts/chosen.min.js"></script>
+<script type="text/javascript" src="/static/scripts/slick.min.js"></script>
+<script type="text/javascript" src="/static/scripts/rangeslider.min.js"></script>
+<script type="text/javascript" src="/static/scripts/magnific-popup.min.js"></script>
+<script type="text/javascript" src="/static/scripts/waypoints.min.js"></script>
+<script type="text/javascript" src="/static/scripts/counterup.min.js"></script>
+<script type="text/javascript" src="/static/scripts/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/static/scripts/tooltips.min.js"></script>
+<script type="text/javascript" src="/static/scripts/custom.js"></script>
+
+<!-- Google Autocomplete -->
+<script>
+    function initAutocomplete() {
+        var input = document.getElementById('autocomplete-input');
+        var autocomplete = new google.maps.places.Autocomplete(input);
+
+        autocomplete.addListener('place_changed', function () {
+            var place = autocomplete.getPlace();
+            if (!place.geometry) {
+                window.alert("No details available for input: '" + place.name + "'");
+                return;
+            }
+        });
+
+        if ($('.main-search-input-item')[0]) {
+            setTimeout(function () {
+                $(".pac-container").prependTo("#autocomplete-container");
+            }, 300);
+        }
+    }
+
+
+/* Set the width of the side navigation to 250px and the left margin of the page content to 250px */
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
+</script>
+<!-- Maps -->
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&callback=initAutocomplete&key=AIzaSyDQq5Nm_tQE5-0LMoN0UAU2YTL5CB4HWoE"></script>
+<script type="text/javascript" src="/static/scripts/infobox.min.js"></script>
+<script type="text/javascript" src="/static/scripts/markerclusterer.js"></script>
+<script type="text/javascript" src="/static/FF263/maps.js"></script>
+
+<script>
+function openNav2() {
+    document.getElementById("mySidenav2").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+}
+
+/* Set the width of the side navigation to 0 and the left margin of the page content to 0 */
+function closeNav2() {
+    document.getElementById("mySidenav2").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+}
+
+</script>
+
+
+
+<!-- 편의시설 선택하기-->
+<div id="mySidenav" class="sidenav">
+    <!-- Checkboxes -->
+{#	<h2>필요한 편의시설  선택하기</h2>#}
+	    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	        <div class="checkboxes in-row margin-bottom-20">
+            {% for i in range(16) %}
+                <input id="check-{{ i }}" type="checkbox" name="check" value="{{ i }}">
+                <label for="check-{{ i }}">{{ faclist[i] }}</label>
+            {% endfor %}
+            </div>
+
+
+            <!-- Sidebar
+        ================================================== -->
+        <div class="col-lg-3 col-md-4" id="mySidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">&times;</a>
+            <div class="sidebar">
+                <div class="row">
+                    <!-- Listing Item -->
+                    <div class="col-lg-12 col-md-12">
+                        {% for i in range(5) %}
+                            <div id="itemlist-{{ i }}" class="listing-item-container list-layout">
+                                <a href="listings-single-page.html" class="listing-item">
+                                    <!-- Image -->
+                                    <div class="listing-item-image">
+
+                                        <span class="tag">추천 장소 카테고리</span>
+                                    </div>
+                                    <!-- Content -->
+                                    <div class="listing-item-content">
+                                        <div class="listing-item-inner">
+                                            <h3>추천 장소</h3>
+                                            <span>추천 장소 주소</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Listing Item / End -->
+                </div>
+            </div>
+        </div>
+        <!-- Sidebar / End -->s
+</div>
+<!-- 편의시설 선택하기/end-->
+
+
+</body>
+</html>
