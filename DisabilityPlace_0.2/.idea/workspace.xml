@@ -2,72 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01af2fbe-d2b0-479d-98a1-1ff6151b375c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/static/FF263/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/FF263/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/FF263/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/FF263/4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/4.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/abc.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/auto_dask.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/auto_door.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/bath.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/bed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/dask.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/dotblock.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/eatingwater.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/ev.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/in.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/no_heigh.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/parking.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/rocker.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/toilet.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/view.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/waring.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/static/images/facility_map/wash.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DisabilityPlace_0.1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DisabilityPlace_0.1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DB3.db" beforeDir="false" afterPath="$PROJECT_DIR$/DB3.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/FF252/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/FF263/main.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/FF252/maps.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/FF263/maps.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/FF252/style24.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/FF263/style24.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/auto_dask.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/auto_door.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/bath.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/bed.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/dask.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/dotblock.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/eatingwater.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/ev.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/in.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/no_heigh.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/parking.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/rocker.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/toilet.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/view.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/waring.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/images/facility_map/wash.PNG" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/auto_dask.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/auto_dask.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base2.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard-facility-eda-map.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard-facility-eda-map.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashboard-totalfacility.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashboard-totalfacility.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/dashoboard-total_big_6.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/dashoboard-total_big_6.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edaboard-base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edaboard-base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/listings-single-page.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/listings-single-page.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/pages-icons.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/pages-icons.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/DisabilityPlace_0_1$DisabilityPlace_0_1.coverage" NAME="DisabilityPlace_0.1 Coverage Results" MODIFIED="1535430326067" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/DisabilityPlace_0_1$DisabilityPlace_0_1.coverage" NAME="DisabilityPlace_0.1 Coverage Results" MODIFIED="1541656819709" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -162,93 +108,81 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="dashboard-totalfacility4.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/dashboard-totalfacility4.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
+            <state relative-caret-position="1833">
               <caret line="141" column="40" selection-start-line="141" selection-start-column="40" selection-end-line="141" selection-end-column="40" />
-              <folding>
-                <element signature="n#div#1;n#div#0;n#!!top" />
-                <element signature="n#div#2;n#div#0;n#!!top" />
-              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file leaf-file-name="dashboard-totalfacility.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/dashboard-totalfacility.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3954">
-              <caret line="176" column="21" selection-start-line="176" selection-start-column="21" selection-end-line="176" selection-end-column="21" />
+            <state relative-caret-position="2704">
+              <caret line="208" column="19" selection-start-line="208" selection-start-column="19" selection-end-line="208" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3994">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
-              <folding>
-                <element signature="e#0#77#0" expanded="true" />
-                <element signature="e#11198#11848#0" />
-                <element signature="e#11877#12614#0" />
-                <element signature="e#12643#13456#0" />
-                <element signature="e#13490#14387#0" />
-                <element signature="e#14513#15410#0" />
-                <element signature="e#15446#16264#0" />
-                <element signature="e#16391#16977#0" />
-                <element signature="e#17100#17599#0" />
-                <element signature="e#18131#18768#0" />
-                <element signature="e#18798#19509#0" />
-                <element signature="e#19544#20338#0" />
-                <element signature="e#20434#21309#0" />
-                <element signature="e#21346#22133#0" />
-                <element signature="e#22852#22957#0" />
-                <element signature="e#22987#23110#0" />
-                <element signature="e#23146#23268#0" />
-                <element signature="e#23363#23482#0" />
-                <element signature="e#23519#23622#0" />
-                <element signature="e#24525#25162#0" />
-                <element signature="e#25409#26120#0" />
-                <element signature="e#26391#27269#0" />
-                <element signature="e#27701#28492#0" />
-                <element signature="e#28771#29482#0" />
-              </folding>
+            <state relative-caret-position="15873">
+              <caret line="1229" selection-start-line="1229" selection-end-line="1229" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="maps.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/FF263/maps.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="base3.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/base3.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="669">
+              <caret line="62" column="1" lean-forward="true" selection-start-line="62" selection-start-column="1" selection-end-line="62" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboard-after-facility-map.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/dashboard-after-facility-map.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-68369">
-              <caret line="120" column="14" selection-start-line="120" selection-start-column="14" selection-end-line="120" selection-end-column="59" />
+            <state relative-caret-position="13">
+              <caret line="901" column="41" lean-forward="true" selection-start-line="901" selection-start-column="41" selection-end-line="901" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="dashoboard-total_big_6.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/dashoboard-total_big_6.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2128">
+            <state relative-caret-position="1456">
               <caret line="112" column="50" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="2.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/FF263/2.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="4.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/FF263/4.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file leaf-file-name="3.png" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/FF263/3.png">
           <provider selected="true" editor-type-id="images" />
         </entry>
@@ -362,10 +296,12 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="935" />
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="952" />
+    <option name="width" value="977" />
     <option name="height" value="1088" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -376,7 +312,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -422,13 +357,14 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Desktop/untitled4" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -468,14 +404,13 @@
       <option name="targetType" value="PATH" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="C:\Users\hara\venv\Scripts\python.exe" />
+      <option name="SDK_HOME" value="C:\Users\cheerup\PycharmProjects\untitled4\env\Scripts\python.exe" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="launchJavascriptDebuger" value="false" />
-      <method v="2" />
     </configuration>
   </component>
   <component name="SvnConfiguration">
@@ -501,57 +436,56 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1485" height="878" extended-state="6" />
-    <editor active="true" />
+    <frame x="762" y="0" width="781" height="870" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.2477193" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3293011" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3293011" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.40866035" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3293011" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.42718446" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="right" id="Database" order="5" weight="0.3291228" />
+      <window_info anchor="right" id="SciView" order="3" weight="0.32982457" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.40591398" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39919356" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3293011" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3293011" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3293011" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" order="13" weight="0.3293011" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" weight="0.32982457" />
       <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="4" side_tool="true" visible="true" weight="0.012080537" />
-      <window_info anchor="right" id="Database" order="5" weight="0.3291228" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Database Console" order="13" weight="0.3293011" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Database Console" order="13" weight="0.3293011" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.5080702" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.095430106" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39919356" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3293011" />
-      <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3293011" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3293011" />
-      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
-      <window_info anchor="bottom" id="Database Console" order="13" weight="0.3293011" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32909605" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.095430106" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
+      <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="4" side_tool="true" visible="true" weight="0.012080537" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39919356" />
+      <window_info anchor="bottom" id="Terminal" order="11" weight="0.3293011" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.3293011" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" weight="0.32982457" />
-      <window_info anchor="right" x="0" y="0" width="337" height="638" id="Documentation" order="4" side_tool="true" visible="true" weight="0.012080537" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="right" id="Database" order="5" weight="0.3291228" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.3293011" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -645,29 +579,10 @@
     <entry file="file://$PROJECT_DIR$/static/images/facilityiconop/음료대.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base3.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3941">
-          <caret line="252" selection-start-line="252" selection-end-line="252" />
-          <folding>
-            <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#body#0;n#!!top" expanded="true" />
-            <element signature="n#form#0;n#div#0;n#div#0;n#div#0;n#body#0;n#!!top" />
-            <element signature="n#div#1;n#div#1;n#body#0;n#!!top" />
-            <element signature="e#8255#8262#1#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/dask.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1071">
           <caret line="160" lean-forward="true" selection-start-line="160" selection-end-line="160" />
-          <folding>
-            <element signature="e#3525#7062#0#HTML" />
-            <element signature="e#7102#9577#0#HTML" />
-            <element signature="e#9617#14218#0#HTML" />
-            <element signature="e#14280#18894#0#HTML" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -699,10 +614,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3918">
           <caret line="281" column="19" selection-start-line="281" selection-start-column="11" selection-end-line="281" selection-end-column="19" />
-          <folding>
-            <element signature="e#4021#4152#0#HTML" />
-            <element signature="e#4184#4416#0#HTML" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -743,9 +654,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2128">
           <caret line="2" column="15" lean-forward="true" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
-          <folding>
-            <element signature="n#script#4;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -760,25 +668,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
           <caret line="189" column="28" selection-start-line="189" selection-start-column="28" selection-end-line="189" selection-end-column="28" />
-          <folding>
-            <element signature="e#5123#5743#0#HTML" />
-            <element signature="e#6682#6846#0#HTML" />
-            <element signature="e#6883#7010#0#HTML" />
-            <element signature="e#7129#7251#0#HTML" />
-            <element signature="e#7283#7415#0#HTML" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/css/style.css">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/FF263/maps.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="28" column="48" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/static/FF263/style24.css">
       <provider selected="true" editor-type-id="text-editor">
@@ -791,14 +685,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="289" column="32" selection-start-line="289" selection-start-column="32" selection-end-line="289" selection-end-column="32" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#body#0;n#!!top" />
-            <element signature="e#6738#7358#0#HTML" />
-            <element signature="e#8297#8461#0#HTML" />
-            <element signature="e#8498#8625#0#HTML" />
-            <element signature="e#8744#8866#0#HTML" />
-            <element signature="e#8898#9030#0#HTML" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -811,68 +697,52 @@
     <entry file="file://$PROJECT_DIR$/static/FF263/2.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3994">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-          <folding>
-            <element signature="e#0#77#0" expanded="true" />
-            <element signature="e#11198#11848#0" />
-            <element signature="e#11877#12614#0" />
-            <element signature="e#12643#13456#0" />
-            <element signature="e#13490#14387#0" />
-            <element signature="e#14513#15410#0" />
-            <element signature="e#15446#16264#0" />
-            <element signature="e#16391#16977#0" />
-            <element signature="e#17100#17599#0" />
-            <element signature="e#18131#18768#0" />
-            <element signature="e#18798#19509#0" />
-            <element signature="e#19544#20338#0" />
-            <element signature="e#20434#21309#0" />
-            <element signature="e#21346#22133#0" />
-            <element signature="e#22852#22957#0" />
-            <element signature="e#22987#23110#0" />
-            <element signature="e#23146#23268#0" />
-            <element signature="e#23363#23482#0" />
-            <element signature="e#23519#23622#0" />
-            <element signature="e#24525#25162#0" />
-            <element signature="e#25409#26120#0" />
-            <element signature="e#26391#27269#0" />
-            <element signature="e#27701#28492#0" />
-            <element signature="e#28771#29482#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/dashboard-after-facility-map.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-68369">
-          <caret line="120" column="14" selection-start-line="120" selection-start-column="14" selection-end-line="120" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/dashoboard-total_big_6.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2128">
+        <state relative-caret-position="1456">
           <caret line="112" column="50" selection-start-line="112" selection-start-column="50" selection-end-line="112" selection-end-column="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/dashboard-totalfacility4.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
+        <state relative-caret-position="1833">
           <caret line="141" column="40" selection-start-line="141" selection-start-column="40" selection-end-line="141" selection-end-column="40" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#!!top" />
-            <element signature="n#div#2;n#div#0;n#!!top" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/dashboard-totalfacility.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3954">
-          <caret line="176" column="21" selection-start-line="176" selection-start-column="21" selection-end-line="176" selection-end-column="21" />
+        <state relative-caret-position="2704">
+          <caret line="208" column="19" selection-start-line="208" selection-start-column="19" selection-end-line="208" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15873">
+          <caret line="1229" selection-start-line="1229" selection-end-line="1229" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/FF263/maps.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/base3.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="669">
+          <caret line="62" column="1" lean-forward="true" selection-start-line="62" selection-start-column="1" selection-end-line="62" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/dashboard-after-facility-map.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="901" column="41" lean-forward="true" selection-start-line="901" selection-start-column="41" selection-end-line="901" selection-end-column="41" />
         </state>
       </provider>
     </entry>
